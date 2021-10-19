@@ -63,6 +63,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "E N S A M B L A D O R", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft Tai Le", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
+        txtArchivo.setEditable(false);
         txtArchivo.setBackground(new java.awt.Color(0, 0, 0));
         txtArchivo.setColumns(20);
         txtArchivo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -227,15 +228,12 @@ public class Inicio extends javax.swing.JFrame {
         chooser.showOpenDialog(null);
         File archivo = new File(chooser.getSelectedFile().getAbsolutePath());
         if(archivo.getName().endsWith(".asm") || archivo.getName().endsWith(".ASM")){
-
-        try {
-            String ST = new String(Files.readAllBytes(archivo.toPath()));
-            txtArchivo.setText(ST);
-        } catch (IOException ex) {
-            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                
-            
+            try {
+                String ST = new String(Files.readAllBytes(archivo.toPath()));
+                txtArchivo.setText(ST);
+            } catch (IOException ex) {
+                Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else{
             JOptionPane.showMessageDialog(null,"El formato de archivo: " + archivo.getName() + " no es el correcto...\n\nSolo se pueden abrir archivos ASM");
         }

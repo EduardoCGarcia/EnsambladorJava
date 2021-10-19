@@ -46,6 +46,7 @@ public class Sintactico extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(230, 230, 230));
         jPanel1.setToolTipText("");
 
+        txtAnalisisSintactico.setEditable(false);
         txtAnalisisSintactico.setBackground(new java.awt.Color(0, 0, 0));
         txtAnalisisSintactico.setColumns(20);
         txtAnalisisSintactico.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N

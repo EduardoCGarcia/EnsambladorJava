@@ -57,6 +57,8 @@ public class TablaDeSimbolos extends javax.swing.JFrame {
             }
         });
 
+        tableSym.setBackground(new java.awt.Color(0, 0, 0));
+        tableSym.setForeground(new java.awt.Color(255, 255, 255));
         tableSym.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

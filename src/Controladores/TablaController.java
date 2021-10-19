@@ -31,7 +31,6 @@ public class TablaController {
         dupli que la info o tengan basura*/
         renglones.clear();
         tabla.clear();
-        System.out.println("limiar");
         /*Inicializamos el data para que solo se pueda cerrar desde que comienza
         el analisis y no vuelva a ser null*/
         data=null;

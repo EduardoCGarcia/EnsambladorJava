@@ -121,6 +121,7 @@ TITLE .* | title .* {return new Symbol(symb.TITLE, yychar, yyline, yytext());}
 {L}({L}|{D})*":" {return new Symbol(symb.Etiqueta, yychar, yyline, yytext());}
 {L}(",") {return new Symbol(symb.SinComa, yychar, yyline, yytext());}
 (", "){D}"h"|(", "){D}"H" {return new Symbol(symb.ERROR, yychar, yyline, yytext());}
+"@"{L} {return new Symbol(symb.ERROR, yychar, yyline, yytext());}
 {D}(",") {return new Symbol(symb.ConstanteDec, yychar, yyline, yytext());}
 {S}.*|{D}({L}|{S}) {return new Symbol(symb.Separadores, yychar, yyline, yytext());}
  . {return new Symbol(symb.ERROR, yychar, yyline, yytext());}

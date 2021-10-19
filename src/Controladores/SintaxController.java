@@ -22,7 +22,7 @@ public class SintaxController {
     public static ArrayList<String> renglones = new ArrayList<String>();
     public static ArrayList<String> resultSin = new ArrayList<String>();
     public static Sintactico winSin = new Sintactico();
-    public static Inicio winIni = new Inicio();
+//    public static Inicio winIni = new Inicio();
     public static void mostrar(){
         winSin.txtAnalisisSintactico.setText(Paginacion.renglonesInicial(resultSin));
         winSin.setVisible(true);
@@ -57,11 +57,11 @@ public class SintaxController {
         String cadSinComa;
         MAESintax s = null;
         Symbol symb;
-        try {
-            LexicoController.analizarLexico(winIni.txtArchivo.getText());
-        } catch (IOException ex) {
-            Logger.getLogger(SintaxController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            LexicoController.analizarLexico(winIni.txtArchivo.getText());
+//        } catch (IOException ex) {
+//            Logger.getLogger(SintaxController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         separatxtArchivo(txtarchivo);
         for (int i = 0; i < renglones.size(); i++) {
             if(!renglones.get(i).isEmpty() || renglones.get(i).isBlank() || renglones.get(i).startsWith("\n")){

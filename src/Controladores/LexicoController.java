@@ -49,12 +49,18 @@ public class LexicoController {
                 }
                 
                 case Simbolo -> {
-                    result = String.format("%-70s\t%s", maeLex.maeLexMe, "Simbolo\n");
-                    cadena.add(result);
-                    if(data=="activado"&&simbolo==null)
-                        simbolo=maeLex.maeLexMe;
-                    else
-                        simbolo=tipo=valor=null;
+                    if(maeLex.maeLexMe.length()<=10 && maeLex.maeLexMe.length()>=1 ){
+                        result = String.format("%-70s\t%s", maeLex.maeLexMe, "Simbolo\n");
+                        cadena.add(result);
+                        if(data=="activado"&&simbolo==null)
+                            simbolo=maeLex.maeLexMe;
+                        else
+                            simbolo=tipo=valor=null;
+                    }else{
+                        result = String.format("%-70s\t%s", maeLex.maeLexMe, "Longitud > 10\n");
+                        cadena.add(result);
+                    }
+                    
                 }
                 
                 case EQU,DB,DW -> {
@@ -181,10 +187,17 @@ public class LexicoController {
 //                        result += "    < Etiqueta >\t\t" + maeLex.maeLexMe + "\n";
                 }
                 case ERROR,Separadores -> {
+                    if(maeLex.maeLexMe.contains(".")){
+                        maeLex.maeLexMe = maeLex.maeLexMe.replace(".", "");
+                    }
+                    if(maeLex.maeLexMe.contains(",")){
+                        maeLex.maeLexMe = maeLex.maeLexMe.replace(",", "");
+                    }
                     result = String.format("%-70s\t%s", maeLex.maeLexMe, "No Identificado\n");
                     cadena.add(result);
                     if(data!=null||simbolo!=null||tipo!=null)
                         simbolo=tipo=null;
+                    
                 }
                 //default -> result += "  < Elemento No Identificado >\t\t " + maeLex.maeLexMe + " \t\n";
                 }

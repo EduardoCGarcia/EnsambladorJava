@@ -112,6 +112,7 @@ TITLE .* | title .* {maeLexMe=yytext(); return TITLE;}
 {L}({L}|{D})*":" {maeLexMe=yytext();  maeLexMe=maeLexMe.replace(":", ""); return Etiqueta;}
 {L}(",") {maeLexMe=yytext(); maeLexMe=maeLexMe.replace(",", ""); return SinComa;}
 (", "){D}"h"|(", "){D}"H" {maeLexMe=yytext(); maeLexMe=maeLexMe.replace(", ", ""); return ERROR;}
+"@"{L} {maeLexMe=yytext(); maeLexMe=maeLexMe.replace(", ", ""); return ERROR;}
 {D}(",") {maeLexMe=yytext(); maeLexMe=maeLexMe.replace(",", ""); return ConstanteDec;}
 {S}.*|{D}({L}|{S}) {maeLexMe=yytext(); return Separadores;}
  . {return ERROR;}

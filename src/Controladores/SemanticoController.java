@@ -35,7 +35,7 @@ public class SemanticoController {
             if (sym.value==null) {
                 sym.value = "Se esperaba algo mas en la linea";
             }
-            winSe.txtAnalisisSemantico.setText("ERROR\n Linea: "+(sym.right+1)+"\n ERROR = " + sym.value);
+            winSe.txtAnalisisSemantico.setText("Se detecto un error!!!!\n\n\n" +  "ERROR = " + sym.value);
             winSe.txtAnalisisSemantico.setForeground(Color.red);
         }
         
