@@ -8,6 +8,7 @@ package Controladores;
 import ClasesFlexCup.Elementos;
 import ProgramaPrincipal.Lexico;
 import static ClasesFlexCup.Elementos.*;
+import static Controladores.SintaxController.existSimbol;
 import static ProgramaPrincipal.Lexico.*;
 import java.io.IOException;
 
@@ -33,7 +34,6 @@ public class LexicoController {
             Elementos elemento = maeLex.yylex();
             if (elemento == null) {
                 if(data=="activado" && simbolo!=null && tipo!=null && valor!=null){
-                    System.out.println("entra");
                     llenarMatriz();
                     simbolo=tipo=valor=null;
                 }
@@ -42,30 +42,25 @@ public class LexicoController {
             
             switch (elemento) {
                 case DATA-> {
-                    result = String.format("%-70s\t%s", maeLex.maeLexMe, "Pseudoinstrucción\n");
-                    cadena.add(result);
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Pseudoinstrucción\n"));
                     if(data==null&&data!="desactivado")
                         data="activado"; 
                 }
                 
                 case Simbolo -> {
                     if(maeLex.maeLexMe.length()<=10 && maeLex.maeLexMe.length()>=1 ){
-                        result = String.format("%-70s\t%s", maeLex.maeLexMe, "Simbolo\n");
-                        cadena.add(result);
+                        cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Simbolo\n"));
                         if(data=="activado"&&simbolo==null)
                             simbolo=maeLex.maeLexMe;
                         else
                             simbolo=tipo=valor=null;
                     }else{
-                        result = String.format("%-70s\t%s", maeLex.maeLexMe, "Longitud > 10\n");
-                        cadena.add(result);
+                        cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Longitud > 10\n"));
                     }
-                    
                 }
                 
                 case EQU,DB,DW -> {
-                    result = String.format("%-70s\t%s", maeLex.maeLexMe, "Pseudoinstrucción\n");
-                    cadena.add(result);
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Pseudoinstrucción\n"));
                     if(data=="activado" && simbolo!=null && tipo==null)
                         tipo=maeLex.maeLexMe;
                     else if(tipo!=null)
@@ -73,8 +68,7 @@ public class LexicoController {
                 }
                 
                 case ConstanteDec -> {
-                    result = String.format("%-70s\t%s", maeLex.maeLexMe, "Constante Decimal\n");
-                    cadena.add(result);
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Constante Decimal\n"));
                     if(data=="activado" && simbolo!=null && tipo!=null)
                         if(valor==null)
                             valor=maeLex.maeLexMe;
@@ -82,44 +76,37 @@ public class LexicoController {
                             valor += " " + maeLex.maeLexMe;
                         else
                             simbolo=tipo=valor=null;
-                    
-                    
                 }
                 
                 case ConstanteBin -> {
-                    result = String.format("%-70s\t%s", maeLex.maeLexMe, "Constante Binaria\n");
-                    cadena.add(result);
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Constante Binaria\n"));
                     if(data=="activado" && simbolo!=null && tipo!=null)
                         if(valor==null)
                             valor=maeLex.maeLexMe;
                 }
 
                 case ConstanteHex -> {
-                    result = String.format("%-70s\t%s", maeLex.maeLexMe, "Constante Hexadecimal\n");
-                    cadena.add(result);
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Constante Hexadecimal\n"));
                     if(data=="activado" && simbolo!=null && tipo!=null)
                         if(valor==null)
                             valor=maeLex.maeLexMe;
                 }
                 case Cadena -> {
-                    result = String.format("%-70s\t%s", maeLex.maeLexMe, "Constante Caracter\n");
-                    cadena.add(result);
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Constante Caracter\n"));
                     if(data=="activado" && simbolo!=null && tipo!=null)
                         if(valor==null)
                             valor=maeLex.maeLexMe;
                 }
                 
                 case ENDS-> {
-                    result = String.format("%-70s\t%s", maeLex.maeLexMe, "Pseudoinstrucción\n");
-                    cadena.add(result);
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Pseudoinstrucción\n"));
                     if(data=="activado"){;
                         data="desactivado";
                     }
                 }
                 
                 case DUP-> {
-                    result = String.format("%-70s\t%s", maeLex.maeLexMe, "Pseudoinstrucción\n");
-                    cadena.add(result);
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Pseudoinstrucción\n"));
                     if(data=="activado" && simbolo!=null && tipo!=null && valor!=null){
                         if(!valor.contains("DUP") && !valor.contains("dup")){
                             valor += " " + maeLex.maeLexMe;
@@ -129,22 +116,19 @@ public class LexicoController {
                 }
                 
                 case STACK,MACRO,ENDM,PROC,ENDP,BYTE_PTR,CODE-> {
-                    result = String.format("%-70s\t%s", maeLex.maeLexMe, "Pseudoinstrucción\n");
-                    cadena.add(result);
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Pseudoinstrucción\n"));
                     if(simbolo!=null || tipo!=null)
                         simbolo=tipo=valor=null;
                 }
 
                 case STI,AAM,CLI,RET,STOSB,AAS,IDIV,DIV,MUL,NOT,ADD,LES,OR,SUB,JC,JGE,JNA,JS,LOOPNE,JAE -> {
-                    result = String.format("%-70s\t%s", maeLex.maeLexMe, "Instrucción\n");
-                    cadena.add(result);
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Instrucción\n"));
                     if(simbolo!=null || tipo!=null)
                         simbolo=tipo=valor=null;
                 }
 
                 case AX,AH,AL,BX,BH,BL,CX,CH,CL,DX,DH,DL,SI,DI,SP,BP,SS,CS,DS,ES -> {
-                    result = String.format("%-70s\t%s", maeLex.maeLexMe, "Registro\n");
-                    cadena.add(result);
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Registro\n"));
                     if(simbolo!=null || tipo!=null)
                         simbolo=tipo=valor=null;
                 }
@@ -155,16 +139,12 @@ public class LexicoController {
 //result += "    < Separador >\t\t" + maeLex.maeLexMe + "\n";
                 }
                 case TITLE -> {
-                    result = String.format("%-70s%s", maeLex.maeLexMe, "Titulo del programa\n");
-                    cadena.add(result);
+                    cadena.add(String.format("%-70s%s", maeLex.maeLexMe, "Titulo del programa\n"));
                     if(simbolo!=null || tipo!=null)
                         simbolo=tipo=valor=null;
                 }
-//               
-
                 
                 case SinComa -> {
-                    
                     switch(maeLex.maeLexMe){
                         case "AX","AH","AL","BX","BH","BL","CX","CH","CL","DX","DH","DL","SI","DI","SP","BP","SS","CS","DS","ES",
                                 "ax","ah","al","bx","bh","bl","cx","ch","cl","dx","dh","dl","si","di","sp","bp","ss","cs","ds","es"-> {
@@ -173,12 +153,8 @@ public class LexicoController {
                         default -> result = String.format("%-70s\t%s", maeLex.maeLexMe, "Simbolo\n");
                     }
                     cadena.add(result);
-                    
-                    
-//                        result += "    < Constante Cadena >\t\t" + maeLex.maeLexMe + "\n";
                 }
                 
-
                 case Etiqueta -> {
                     result = String.format("%-70s\t%s", maeLex.maeLexMe, "Etiqueta\n");
                     cadena.add(result);
@@ -200,11 +176,7 @@ public class LexicoController {
                     
                 }
                 //default -> result += "  < Elemento No Identificado >\t\t " + maeLex.maeLexMe + " \t\n";
-                }
-            //}
-            
-            
-            
+            }
         }
     }
     
@@ -223,15 +195,22 @@ public class LexicoController {
         for (int i = 0; i < tabla.size(); i++) {
             if(tabla.get(i)[0].contains(simbolo)){
                 val = true;
+                break;
             }
-            
         }
-        if (!val) {
+        
+        if (!val) {//Si el simbolo existe en a tabla lo añade
             String [] fila = new String[]{simbolo,tipo,valor,tamaño};
             tabla.add(fila);
+            simbolos.add(simbolo);//Guardamos solo el simbolo que es valido
         }
+        existSimbol = val;//Si el simbolo no es añadido a la tabla significa que val=true entonces debemos mandar mensaje de error en el sintactico
+        
         
     }
     
+    
+    
+   
     
 }

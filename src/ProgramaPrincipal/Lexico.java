@@ -27,6 +27,7 @@ public class Lexico extends javax.swing.JFrame {
     static DefaultTableModel modeloLista;
     public static ArrayList<String> cadena = new ArrayList<String>();
     public static ArrayList<String[]> tabla = new ArrayList<String[]>();
+    public static ArrayList<String> simbolos = new ArrayList<String>();//Aquí guardamos todos los simbolos validos y no repetidos nos ayudammos de atabla
     public static String[][] tablaSimbolos;
     public static int filas=0,columnas=0;
     public static String data,simbolo,tipo,valor;

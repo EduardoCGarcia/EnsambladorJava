@@ -63,7 +63,6 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "E N S A M B L A D O R", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft Tai Le", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        txtArchivo.setEditable(false);
         txtArchivo.setBackground(new java.awt.Color(0, 0, 0));
         txtArchivo.setColumns(20);
         txtArchivo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -308,6 +307,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JTextArea txtArchivo;
+    public static javax.swing.JTextArea txtArchivo;
     // End of variables declaration//GEN-END:variables
 }

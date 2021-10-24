@@ -7,6 +7,7 @@ package Controladores;
 
 import static Controladores.LexicoController.winLex;
 import static Controladores.SintaxController.*;
+import ProgramaPrincipal.Lexico;
 import static ProgramaPrincipal.Lexico.*;
 import ProgramaPrincipal.TablaDeSimbolos;
 import static ProgramaPrincipal.TablaDeSimbolos.*;
@@ -65,5 +66,8 @@ public class TablaController {
             modeloLista.addRow(vec);
         }
         winTable.tableSym.setModel(modeloLista);
+//        for (String sym : Lexico.simbolos) {
+//            System.out.println(sym);
+//        }
     }
 }
