@@ -20,11 +20,20 @@ terminal Linea,DB,DW,EQU,STACK,DATA,CODE,MACRO,ENDM, ENDS, PROC, ENDP,BYTE_PTR,W
         Dos_puntos,Coma,Comilla_d,Comilla_s,Parentesis_a,Parentesis_c,Corchete_a,Corchete_c,Separadores,TITLE,
         SinComa,DUP,Cadena,ConstanteDec,ConstanteBin,ConstanteHex,Simbolo,Etiqueta,ERROR;
 
-non terminal PROGRAMA,StackSegment,DeclaraStack,Declaraciones,Declaracion;
+non terminal PROGRAMA,StackSegment,DeclaraStack,Declaraciones,Declaracion,DefProc;
 
 start with PROGRAMA;
 
-PROGRAMA::=STACK|DeclaraStack|ENDS|DATA|Declaracion|CODE|MACRO;
+PROGRAMA::=STACK|
+DeclaraStack|
+ENDS|
+ENDP|
+DATA|
+Declaracion|
+CODE|
+MACRO|
+DefProc|
+Etiqueta;
 
 DeclaraStack::=DW ConstanteDec DUP|DW ConstanteBin DUP|DW ConstanteHex DUP;
 
@@ -35,5 +44,5 @@ Declaracion::= Simbolo DB Cadena|
                 Simbolo DW ConstanteDec DUP|Simbolo DW ConstanteBin DUP|Simbolo DW ConstanteHex DUP|
                 Simbolo EQU ConstanteDec|Simbolo EQU ConstanteBin|Simbolo EQU ConstanteHex;
 
-
+DefProc::= PROC Simbolo;
 

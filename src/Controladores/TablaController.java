@@ -34,7 +34,11 @@ public class TablaController {
         tabla.clear();
         /*Inicializamos el data para que solo se pueda cerrar desde que comienza
         el analisis y no vuelva a ser null*/
-        data=null;
+        data = null;
+        /*Inicializamos code con la misma finalidad que el data lo unico que tenemos 
+        que garantizar es que una vez que el code se active se cerrara con ENDP y no volvera a activarse
+        Esa validacion esta directamente en el LexicoController*/
+        code = null;
         /*Separamos todo el rengolones para que el analisis de los simbolos solo
         considere lo que se ecuentra en un renglon ya que si tomamos bloques completos
         puede confundirse*/
