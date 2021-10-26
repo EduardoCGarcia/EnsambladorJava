@@ -15,12 +15,21 @@ parser code
 }
 :};
 terminal Linea,DB,DW,EQU,STACK,DATA,CODE,MACRO,ENDM, ENDS, PROC, ENDP,BYTE_PTR,WORD_PTR,
-        STI,AAM,CLI,RET,STOSB,AAS,IDIV,DIV,MUL,NOT,ADD,LES,OR,SUB,JC,JGE,JNA,JS,LOOPNE,JAE,
+        STI,AAM,SLI,RET,STOSB,AAS,IDIV,DIV,MUL,NOT,ADD,LES,OR,SUB,JC,JGE,JNA,JS,LOOPNE,JAE,
         AX,AH,AL,BX,BH,BL,CX,CH,CL,DX,DH,DL,SI,DI,SP,BP,SS,CS,DS,ES,
         Dos_puntos,Coma,Comilla_d,Comilla_s,Parentesis_a,Parentesis_c,Corchete_a,Corchete_c,Separadores,TITLE,
         SinComa,DUP,Cadena,ConstanteDec,ConstanteBin,ConstanteHex,Simbolo,Etiqueta,ERROR;
 
-non terminal PROGRAMA,StackSegment,DeclaraStack,Declaraciones,Declaracion,DefProc;
+non terminal 
+PROGRAMA,
+StackSegment,
+DeclaraStack,
+Declaraciones,
+Declaracion,
+DefProc,
+ZeOpInst,
+OneOpInst,
+TwoOpInst;
 
 start with PROGRAMA;
 
@@ -33,7 +42,11 @@ Declaracion|
 CODE|
 MACRO|
 DefProc|
-Etiqueta;
+Etiqueta|
+ZeOpInst|
+OneOpInst|
+TwoOpInst
+;
 
 DeclaraStack::=DW ConstanteDec DUP|DW ConstanteBin DUP|DW ConstanteHex DUP;
 
@@ -45,4 +58,185 @@ Declaracion::= Simbolo DB Cadena|
                 Simbolo EQU ConstanteDec|Simbolo EQU ConstanteBin|Simbolo EQU ConstanteHex;
 
 DefProc::= PROC Simbolo;
+
+ZeOpInst::= AAS|STOSB|RET|SLI|AAM|STI;
+
+OneOpInst::= 
+IDIV AX|IDIV AH|IDIV AL|IDIV BX|IDIV BH|IDIV BL|IDIV CX|IDIV CH|IDIV CL|IDIV DX|IDIV DH|IDIV DL|IDIV SI|IDIV DI|IDIV SP|IDIV BP|IDIV SS|IDIV CS|IDIV DS|IDIV ES|IDIV Simbolo|
+DIV AX|DIV AH|DIV AL|DIV BX|DIV BH|DIV BL|DIV CX|DIV CH|DIV CL|DIV DX|DIV DH|DIV DL|DIV SI|DIV DI|DIV SP|DIV BP|DIV SS|DIV CS|DIV DS|DIV ES|DIV Simbolo|
+MUL AX|MUL AH|MUL AL|MUL BX|MUL BH|MUL BL|MUL CX|MUL CH|MUL CL|MUL DX|MUL DH|MUL DL|MUL SI|MUL DI|MUL SP|MUL BP|MUL SS|MUL CS|MUL DS|MUL ES|MUL Simbolo|
+NOT AX|NOT AH|NOT AL|NOT BX|NOT BH|NOT BL|NOT CX|NOT CH|NOT CL|NOT DX|NOT DH|NOT DL|NOT SI|NOT DI|NOT SP|NOT BP|NOT SS|NOT CS|NOT DS|NOT ES|NOT Simbolo|
+JC Simbolo|
+JGE Simbolo|
+JNA Simbolo|
+JS Simbolo|
+LOOPNE Simbolo|
+JAE Simbolo;
+
+TwoOpInst::=
+ADD AX BX|ADD AX CX|ADD AX DX|ADD AX SI|ADD AX DI|ADD AX BP|ADD AX SP|
+ADD BX AX|ADD BX CX|ADD BX DX|ADD BX SI|ADD BX DI|ADD BX BP|ADD BX SP|
+ADD CX AX|ADD CX BX|ADD CX DX|ADD CX SI|ADD CX DI|ADD CX BP|ADD CX SP|
+ADD DX AX|ADD DX BX|ADD DX CX|ADD DX SI|ADD DX DI|ADD DX BP|ADD DX SP|
+ADD SI AX|ADD SI BX|ADD SI CX|ADD SI DX|ADD SI DI|ADD SI BP|ADD SI SP|
+ADD DI AX|ADD DI BX|ADD DI CX|ADD DI DX|ADD DI SI|ADD DI BP|ADD DI SP|
+ADD BP AX|ADD BP BX|ADD BP CX|ADD BP DX|ADD BP SI|ADD BP DI|ADD BP SP|
+ADD SP AX|ADD SP BX|ADD SP CX|ADD SP DX|ADD SP SI|ADD SP DI|ADD SP BP|
+ADD AH BH|ADD AH CH|ADD AH DH|
+ADD BH AH|ADD BH CH|ADD BH DH|
+ADD CH AH|ADD CH BH|ADD CH DH|
+ADD DH AH|ADD DH BH|ADD DH CH|
+ADD AL BL|ADD AL CL|ADD AL DL|
+ADD BL AL|ADD BL CL|ADD BL DL|
+ADD CL AL|ADD CL BL|ADD CL DL|
+ADD DL AL|ADD DL BL|ADD DL CL|
+LES AX Simbolo|
+LES BX Simbolo|
+LES CX Simbolo|
+LES DX Simbolo|
+LES SI Simbolo|
+LES DI Simbolo|
+LES BP Simbolo|
+LES SP Simbolo|
+LES AH Simbolo|
+LES BH Simbolo|
+LES CH Simbolo|
+LES DH Simbolo|
+LES AL Simbolo|
+LES BL Simbolo|
+LES CL Simbolo|
+LES DL Simbolo|
+OR AX BX|OR AX CX|OR AX DX|OR AX SI|OR AX DI|OR AX BP|OR AX SP|
+OR BX AX|OR BX CX|OR BX DX|OR BX SI|OR BX DI|OR BX BP|OR BX SP|
+OR CX AX|OR CX BX|OR CX DX|OR CX SI|OR CX DI|OR CX BP|OR CX SP|
+OR DX AX|OR DX BX|OR DX CX|OR DX SI|OR DX DI|OR DX BP|OR DX SP|
+OR SI AX|OR SI BX|OR SI CX|OR SI DX|OR SI DI|OR SI BP|OR SI SP|
+OR DI AX|OR DI BX|OR DI CX|OR DI DX|OR DI SI|OR DI BP|OR DI SP|
+OR BP AX|OR BP BX|OR BP CX|OR BP DX|OR BP SI|OR BP DI|OR BP SP|
+OR SP AX|OR SP BX|OR SP CX|OR SP DX|OR SP SI|OR SP DI|OR SP BP|
+OR AH BH|OR AH CH|OR AH DH|
+OR BH AH|OR BH CH|OR BH DH|
+OR CH AH|OR CH BH|OR CH DH|
+OR DH AH|OR DH BH|OR DH CH|
+OR AL BL|OR AL CL|OR AL DL|
+OR BL AL|OR BL CL|OR BL DL|
+OR CL AL|OR CL BL|OR CL DL|
+OR DL AL|OR DL BL|OR DL CL|
+OR AX Simbolo|
+OR BX Simbolo|
+OR CX Simbolo|
+OR DX Simbolo|
+OR SI Simbolo|
+OR DI Simbolo|
+OR BP Simbolo|
+OR SP Simbolo|
+OR AH Simbolo|
+OR BH Simbolo|
+OR CH Simbolo|
+OR DH Simbolo|
+OR AL Simbolo|
+OR BL Simbolo|
+OR CL Simbolo|
+OR DL Simbolo|
+OR Simbolo AX|
+OR Simbolo BX|
+OR Simbolo CX|
+OR Simbolo DX|
+OR Simbolo SI|
+OR Simbolo DI|
+OR Simbolo BP|
+OR Simbolo SP|
+OR Simbolo AH|
+OR Simbolo BH|
+OR Simbolo CH|
+OR Simbolo DH|
+OR Simbolo AL|
+OR Simbolo BL|
+OR Simbolo CL|
+OR Simbolo DL|
+OR AX ConstanteDec|OR AX ConstanteBin|OR AX ConstanteHex|
+OR BX ConstanteDec|OR BX ConstanteBin|OR BX ConstanteHex|
+OR CX ConstanteDec|OR CX ConstanteBin|OR CX ConstanteHex|
+OR DX ConstanteDec|OR DX ConstanteBin|OR DX ConstanteHex|
+OR SI ConstanteDec|OR SI ConstanteBin|OR SI ConstanteHex|
+OR DI ConstanteDec|OR DI ConstanteBin|OR DI ConstanteHex|
+OR BP ConstanteDec|OR BP ConstanteBin|OR BP ConstanteHex|
+OR SP ConstanteDec|OR SP ConstanteBin|OR SP ConstanteHex|
+OR AH ConstanteDec|OR AH ConstanteBin|OR AH ConstanteHex|
+OR BH ConstanteDec|OR BH ConstanteBin|OR BH ConstanteHex|
+OR CH ConstanteDec|OR CH ConstanteBin|OR CH ConstanteHex|
+OR DH ConstanteDec|OR DH ConstanteBin|OR DH ConstanteHex|
+OR AL ConstanteDec|OR AL ConstanteBin|OR AL ConstanteHex|
+OR BL ConstanteDec|OR BL ConstanteBin|OR BL ConstanteHex|
+OR CL ConstanteDec|OR CL ConstanteBin|OR CL ConstanteHex|
+OR DL ConstanteDec|OR DL ConstanteBin|OR DL ConstanteHex|
+OR Simbolo ConstanteDec|OR Simbolo ConstanteBin|OR Simbolo ConstanteHex|
+SUB AX BX|SUB AX CX|SUB AX DX|SUB AX SI|SUB AX DI|SUB AX BP|SUB AX SP|
+SUB BX AX|SUB BX CX|SUB BX DX|SUB BX SI|SUB BX DI|SUB BX BP|SUB BX SP|
+SUB CX AX|SUB CX BX|SUB CX DX|SUB CX SI|SUB CX DI|SUB CX BP|SUB CX SP|
+SUB DX AX|SUB DX BX|SUB DX CX|SUB DX SI|SUB DX DI|SUB DX BP|SUB DX SP|
+SUB SI AX|SUB SI BX|SUB SI CX|SUB SI DX|SUB SI DI|SUB SI BP|SUB SI SP|
+SUB DI AX|SUB DI BX|SUB DI CX|SUB DI DX|SUB DI SI|SUB DI BP|SUB DI SP|
+SUB BP AX|SUB BP BX|SUB BP CX|SUB BP DX|SUB BP SI|SUB BP DI|SUB BP SP|
+SUB SP AX|SUB SP BX|SUB SP CX|SUB SP DX|SUB SP SI|SUB SP DI|SUB SP BP|
+SUB AH BH|SUB AH CH|SUB AH DH|
+SUB BH AH|SUB BH CH|SUB BH DH|
+SUB CH AH|SUB CH BH|SUB CH DH|
+SUB DH AH|SUB DH BH|SUB DH CH|
+SUB AL BL|SUB AL CL|SUB AL DL|
+SUB BL AL|SUB BL CL|SUB BL DL|
+SUB CL AL|SUB CL BL|SUB CL DL|
+SUB DL AL|SUB DL BL|SUB DL CL|
+SUB AX Simbolo|
+SUB BX Simbolo|
+SUB CX Simbolo|
+SUB DX Simbolo|
+SUB SI Simbolo|
+SUB DI Simbolo|
+SUB BP Simbolo|
+SUB SP Simbolo|
+SUB AH Simbolo|
+SUB BH Simbolo|
+SUB CH Simbolo|
+SUB DH Simbolo|
+SUB AL Simbolo|
+SUB BL Simbolo|
+SUB CL Simbolo|
+SUB DL Simbolo|
+SUB Simbolo AX|
+SUB Simbolo BX|
+SUB Simbolo CX|
+SUB Simbolo DX|
+SUB Simbolo SI|
+SUB Simbolo DI|
+SUB Simbolo BP|
+SUB Simbolo SP|
+SUB Simbolo AH|
+SUB Simbolo BH|
+SUB Simbolo CH|
+SUB Simbolo DH|
+SUB Simbolo AL|
+SUB Simbolo BL|
+SUB Simbolo CL|
+SUB Simbolo DL|
+SUB AX ConstanteDec|SUB AX ConstanteBin|SUB AX ConstanteHex|
+SUB BX ConstanteDec|SUB BX ConstanteBin|SUB BX ConstanteHex|
+SUB CX ConstanteDec|SUB CX ConstanteBin|SUB CX ConstanteHex|
+SUB DX ConstanteDec|SUB DX ConstanteBin|SUB DX ConstanteHex|
+SUB SI ConstanteDec|SUB SI ConstanteBin|SUB SI ConstanteHex|
+SUB DI ConstanteDec|SUB DI ConstanteBin|SUB DI ConstanteHex|
+SUB BP ConstanteDec|SUB BP ConstanteBin|SUB BP ConstanteHex|
+SUB SP ConstanteDec|SUB SP ConstanteBin|SUB SP ConstanteHex|
+SUB AH ConstanteDec|SUB AH ConstanteBin|SUB AH ConstanteHex|
+SUB BH ConstanteDec|SUB BH ConstanteBin|SUB BH ConstanteHex|
+SUB CH ConstanteDec|SUB CH ConstanteBin|SUB CH ConstanteHex|
+SUB DH ConstanteDec|SUB DH ConstanteBin|SUB DH ConstanteHex|
+SUB AL ConstanteDec|SUB AL ConstanteBin|SUB AL ConstanteHex|
+SUB BL ConstanteDec|SUB BL ConstanteBin|SUB BL ConstanteHex|
+SUB CL ConstanteDec|SUB CL ConstanteBin|SUB CL ConstanteHex|
+SUB DL ConstanteDec|SUB DL ConstanteBin|SUB DL ConstanteHex|
+SUB Simbolo ConstanteDec|SUB Simbolo ConstanteBin|SUB Simbolo ConstanteHex
+;
+
+
 

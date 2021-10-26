@@ -60,9 +60,6 @@ public class SintaxController {
         String cadSinComa;
         MAESintax s = null;
         Symbol symb;
-        for (String sim : simbolos) {
-            System.out.println(sim);
-        }
         simbolos.clear();
         /*Ejecutamos el analizador lexico debido a que necesitamos llenar los renglones si no nos manda un nullpointer exception*/
         try {
@@ -77,11 +74,15 @@ public class SintaxController {
         si no se llegaa abrir el data segment por obvias razones no deberia poderse declarar ningun dato*/
         data=null;
         for (int i = 0; i < renglones.size(); i++) {
+            if(renglones.get(i).contains(",")){
+                renglones.set(i,renglones.get(i).replace(",", " "));
+            }
+            
             existSimbol = false;//Decimos que el simbolo no existe hasta que entre al analizador en donde puede cambiar dependiendo de si el simbolo se esta repitiendo
             if(!renglones.get(i).isEmpty() || renglones.get(i).isBlank() || renglones.get(i).startsWith("\n")){
                 try {
                     s = new MAESintax(new MAELEXCup((new StringReader(renglones.get(i)))));//Analiza renglon por renglon
-                    
+
                     LexicoController.analizarLexico(renglones.get(i));//mandamos un renglon para saber si el simbolo existe
                     /*Primero preguntamos si el simbolo ya existe antes de hacer el analisis sintactico*/
                     s.parse();/*Si el simbolo ya existe pero esta mal escrito algo sintacticamente te manda al catch ya que no se esta definiendo tal cual como un simbolo*/
@@ -90,7 +91,6 @@ public class SintaxController {
                         
                         resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ REPETIDO ]\n");
                         existSimbolSem = true;
-                        System.out.println("Sombolo repetido");
                     }else{
                         /*Si el simbolo no se repite no hay problema y manda un correcto en caso de que lo sea en el analisis sintactico*/
                         resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   

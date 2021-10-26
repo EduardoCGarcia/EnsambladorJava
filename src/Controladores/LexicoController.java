@@ -169,7 +169,7 @@ public class LexicoController {
                         etiqueta=null;
                 }
 
-                case STI,AAM,CLI,RET,STOSB,AAS,IDIV,DIV,MUL,NOT,ADD,LES,OR,SUB,JC,JGE,JNA,JS,LOOPNE,JAE -> {
+                case STI,AAM,SLI,RET,STOSB,AAS,IDIV,DIV,MUL,NOT,ADD,LES,OR,SUB,JC,JGE,JNA,JS,LOOPNE,JAE -> {
                     cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Instrucción\n"));
                     if(simbolo!=null || tipo!=null)
                         simbolo=tipo=valor=null;
@@ -219,7 +219,7 @@ public class LexicoController {
                         if(data!=null||simbolo!=null||tipo!=null){
                             simbolo=tipo=null;
                         }
-                        //System.out.println("Code " + code + "Etiqueta " + etiqueta);
+                        System.out.println("Code " + code + "Etiqueta " + etiqueta);
                         if(code=="activado" && etiqueta==null){
                             etiqueta = maeLex.maeLexMe;
                             System.out.println("Guarda etiqueta");
@@ -264,11 +264,11 @@ public class LexicoController {
     }
     
     static void llenarMatrizSimbolos(){
-        String tamaño;
+        String tamaño = "";
         boolean val = false;
         if(tipo.equals("DB")||tipo.equals("db"))
             tamaño = "Byte";
-        else
+        else if(tipo.equals("DW")||tipo.equals("dw"))//*************************
             tamaño = "Word";
         
         if(tipo.equals("EQU")||tipo.equals("equ"))

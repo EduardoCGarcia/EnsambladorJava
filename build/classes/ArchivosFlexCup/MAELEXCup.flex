@@ -43,7 +43,7 @@ endp | ENDP {return new Symbol(sym.ENDP, yychar, yyline, yytext());}
 /*Instrucciones*/
 sti | STI {return new Symbol(sym.STI, yychar, yyline, yytext());} 
 aam | AAM {return new Symbol(sym.AAM, yychar, yyline, yytext());} 
-cli | CLI {return new Symbol(sym.CLI, yychar, yyline, yytext());} 
+sli | SLI {return new Symbol(sym.SLI, yychar, yyline, yytext());} 
 ret | RET {return new Symbol(sym.RET, yychar, yyline, yytext());} 
 stosb | STOSB {return new Symbol(sym.STOSB, yychar, yyline, yytext());} 
 aas | AAS {return new Symbol(sym.AAS, yychar, yyline, yytext());} 
