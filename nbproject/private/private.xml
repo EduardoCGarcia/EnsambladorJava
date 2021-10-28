@@ -3,7 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Ensamblador/ProyectoEnsamblador/src/ArchivosFlexCup/MAELEXCup.flex</file>
+            <file>file:/D:/Ensamblador/ProyectoEnsamblador/src/Controladores/TablaController.java</file>
+            <file>file:/D:/Ensamblador/ProyectoEnsamblador/src/ProgramaPrincipal/Lexico.java</file>
             <file>file:/D:/Ensamblador/ProyectoEnsamblador/src/Controladores/SintaxController.java</file>
             <file>file:/D:/Ensamblador/ProyectoEnsamblador/src/Controladores/LexicoController.java</file>
         </group>

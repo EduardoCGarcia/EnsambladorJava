@@ -26,10 +26,12 @@ public class LexicoController {
     
     public static void analizarLexico(String lec) throws IOException {
         cadena.clear();
+        simbolos.clear();
+        
         //String lec = (String) txtArchivo.getText();//Todo lo que se lee del archivo y que cae en txtArchivo
         MAELEX maeLex = new MAELEX(new java.io.StringReader(lec));//Se lo colocamos al maeLex porque es el que va a hacer el analisis lexico
         String result = "";
-        simbolo=tipo=valor=etiqueta=null;
+        simbolo=tipo=valor=etiqueta=instSalto=null;
         while (true) {
             Elementos elemento = maeLex.yylex();
             if (elemento == null) {
@@ -43,7 +45,6 @@ public class LexicoController {
                     simbolo=tipo=valor=etiqueta=null;
                 }
                 if(code=="activado" && etiqueta!=null){
-                    System.out.println("Encontro una etiqueta");
                     llenarMatrizEtiquetas();
                     simbolo=tipo=valor=etiqueta=null;
                 }
@@ -64,7 +65,7 @@ public class LexicoController {
                     cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Pseudoinstrucción\n"));
                     if(code==null&&code!="desactivado"){
                         code="activado"; 
-                        System.out.println("activa code");
+                        
                     }
                 }
                 
@@ -75,6 +76,13 @@ public class LexicoController {
                             simbolo=maeLex.maeLexMe;
                         else
                             simbolo=tipo=valor=null;
+                        
+                        if(instSalto=="activado"){
+                            System.out.println("Sintaxis de salto correcta validando si existe el simbolo");
+                            saltoVal=existInEtiqs(maeLex.maeLexMe);
+                        }
+                            
+                        
                     }else{
                         cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Longitud > 10\n"));
                     }
@@ -169,13 +177,32 @@ public class LexicoController {
                         etiqueta=null;
                 }
 
-                case STI,AAM,SLI,RET,STOSB,AAS,IDIV,DIV,MUL,NOT,ADD,LES,OR,SUB,JC,JGE,JNA,JS,LOOPNE,JAE -> {
+                case STI,AAM,SLI,RET,STOSB,AAS,IDIV,DIV,MUL,NOT,ADD,LES,OR,SUB-> {
                     cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Instrucción\n"));
                     if(simbolo!=null || tipo!=null)
                         simbolo=tipo=valor=null;
                     /*Si esta activo el codigo y la etiqueta y se lee cualquier otra cosa los reiniciamos*/
                     if(code!="desactivado" && etiqueta!=null)
                         etiqueta=null;
+                    
+                    
+                    
+                    
+                }
+                case JC,JGE,JNA,JS,LOOPNE,JAE -> {
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Instrucción\n"));
+                    if(simbolo!=null || tipo!=null)
+                        simbolo=tipo=valor=null;
+                    /*Si esta activo el codigo y la etiqueta y se lee cualquier otra cosa los reiniciamos*/
+                    if(code!="desactivado" && etiqueta!=null)
+                        etiqueta=null;
+                    if(code!=null){
+                        System.out.println("Encontro un salto");
+                        instSalto = "activado";
+//                        saltoVal = true;
+//                        System.out.println("Encontro la etiqueta en en la tabla");
+                    }
+                        
                 }
 
                 case AX,AH,AL,BX,BH,BL,CX,CH,CL,DX,DH,DL,SI,DI,SP,BP,SS,CS,DS,ES -> {
@@ -219,11 +246,10 @@ public class LexicoController {
                         if(data!=null||simbolo!=null||tipo!=null){
                             simbolo=tipo=null;
                         }
-                        System.out.println("Code " + code + "Etiqueta " + etiqueta);
                         if(code=="activado" && etiqueta==null){
                             etiqueta = maeLex.maeLexMe;
-                            System.out.println("Guarda etiqueta");
                         }
+                        
                         /*Si esta activo el codigo y la etiqueta y se lee cualquier otra cosa los reiniciamos*/
 //                        if(code!="desactivado" && etiqueta!=null)
 //                            etiqueta=null;
@@ -275,44 +301,61 @@ public class LexicoController {
             tipo = "Constante";
         else
             tipo = "Variable";
-        for (int i = 0; i < tabla.size(); i++) {
-            if(tabla.get(i)[0].contains(simbolo)){
-                val = true;
-                break;
-            }
-        }
+        
+        //val = existInTable(simbolo);
+        val = existInTable(simbolo);
         
         if (!val) {//Si el simbolo existe en a tabla lo añade
             String [] fila = new String[]{simbolo,tipo,valor,tamaño};
             tabla.add(fila);
             simbolos.add(simbolo);//Guardamos solo el simbolo que es valido
         }
-        existSimbol = val;//Si el simbolo no es añadido a la tabla significa que val=true entonces debemos mandar mensaje de error en el sintactico
-        
-        
+        existSimbol = val;
+       //Si el simbolo no es añadido a la tabla significa que val=true entonces debemos mandar mensaje de error en el sintactico
     }
     static void llenarMatrizEtiquetas(){
         boolean val = false;
         tipo = "Etiqueta";
         
-        for (int i = 0; i < tabla.size(); i++) {
-            if(tabla.get(i)[0].contains(etiqueta)){
-                val = true;
-                break;
-            }
-        }
-        
-        if (!val) {//Si el simbolo no existe en a tabla lo añade
+        val = existInTable(etiqueta);
+        if (!val) {//Si LA etiqueta no existe en a tabla lo añade
             String [] fila = new String[]{etiqueta,tipo,"",""};
             tabla.add(fila);
-            simbolos.add(etiqueta);//Guardamos solo el simbolo que es valido
+            etiquetas.add(etiqueta);//Guardamos solo el simbolo que es valido
+            
         }
-        existSimbol = val;//Si el simbolo no es añadido a la tabla significa que val=true entonces debemos mandar mensaje de error en el sintactico
-        
+        //Si el simbolo no es añadido a la tabla significa que val=true entonces debemos mandar mensaje de error en el sintactico
         
     }
     
-    
+    public static boolean existInTable(String buscado){
+        
+        for (int i = 0; i < tabla.size(); i++) {
+            if(tabla.get(i)[0].contains(buscado)){
+                //System.out.println(tabla.get(i)[0]);
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean existInEtiqs(String buscado){
+        
+        for (int i = 0; i < etiquetas.size(); i++) {
+            if(etiquetas.get(i).contains(buscado)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean existInSims(String buscado){
+        
+        for (int i = 0; i < simbolos.size(); i++) {
+            if(simbolos.get(i).contains(buscado)){
+                return true;
+            }
+        }
+        return false;
+    }
     
    
     

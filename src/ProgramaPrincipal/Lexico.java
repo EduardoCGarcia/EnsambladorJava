@@ -28,10 +28,13 @@ public class Lexico extends javax.swing.JFrame {
     public static ArrayList<String> cadena = new ArrayList<String>();
     public static ArrayList<String[]> tabla = new ArrayList<String[]>();
     public static ArrayList<String> simbolos = new ArrayList<String>();//Aquí guardamos todos los simbolos validos y no repetidos nos ayudammos de atabla
+    public static ArrayList<String> etiquetas = new ArrayList<String>();//Aquí guardamos todos los simbolos validos y no repetidos nos ayudammos de atabla
     public static String[][] tablaSimbolos;
     public static int filas=0,columnas=0;
-    public static String data,simbolo,tipo,valor,code,etiqueta;
+    public static String data,simbolo,tipo,valor,code,etiqueta,instSalto;
+    public static boolean saltoVal;
     public static int cont = 0;
+    public static ArrayList<String> etiqs = new ArrayList<String>();
     public Lexico() {
         initComponents();
         this.setLocationRelativeTo(null);

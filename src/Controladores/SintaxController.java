@@ -9,6 +9,7 @@ import ClasesFlexCup.MAESintax;
 import ProgramaPrincipal.Inicio;
 import static ProgramaPrincipal.Lexico.*;
 import ProgramaPrincipal.Sintactico;
+import ProgramaPrincipal.TablaDeSimbolos;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class SintaxController {
     public static Sintactico winSin = new Sintactico();
     public static boolean existSimbol;
     public static boolean existSimbolSem;
+    public  static boolean existEtiq;
 //    public static Inicio winIni = new Inicio();
     public static void mostrar(){
         winSin.txtAnalisisSintactico.setText(Paginacion.renglonesInicial(resultSin));
@@ -57,16 +59,21 @@ public class SintaxController {
     public static void analisisSintax(String txtarchivo){
         resultSin.clear();
         tabla.clear();
+        simbolos.clear();
+        //etiquetas.clear();
         String cadSinComa;
         MAESintax s = null;
         Symbol symb;
         simbolos.clear();
         /*Ejecutamos el analizador lexico debido a que necesitamos llenar los renglones si no nos manda un nullpointer exception*/
         try {
-                LexicoController.analizarLexico(txtarchivo);
+                TablaController.llenarTabla(txtarchivo, TablaDeSimbolos.tableSym);
+                //LexicoController.analizarLexico(txtarchivo);
         } catch (IOException ex) {
             Logger.getLogger(SintaxController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        simbolos.clear();
+        tabla.clear();
         /*Separamos por saltos de linea las el contenido total del texto que se obtiene del archivo*/
         separatxtArchivo(txtarchivo);
         //simbolos.clear();//vaciamos los simbolos para volver a llenarlos pero esta vez renglon por renglon
@@ -77,7 +84,7 @@ public class SintaxController {
             if(renglones.get(i).contains(",")){
                 renglones.set(i,renglones.get(i).replace(",", " "));
             }
-            
+            saltoVal = false;
             existSimbol = false;//Decimos que el simbolo no existe hasta que entre al analizador en donde puede cambiar dependiendo de si el simbolo se esta repitiendo
             if(!renglones.get(i).isEmpty() || renglones.get(i).isBlank() || renglones.get(i).startsWith("\n")){
                 try {
@@ -87,14 +94,24 @@ public class SintaxController {
                     /*Primero preguntamos si el simbolo ya existe antes de hacer el analisis sintactico*/
                     s.parse();/*Si el simbolo ya existe pero esta mal escrito algo sintacticamente te manda al catch ya que no se esta definiendo tal cual como un simbolo*/
                     //symb = s.getS();
-                    if (existSimbol==true) {//si el simbolo ya existia en el arreglo simbolos manda un error
-                        
-                        resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ REPETIDO ]\n");
-                        existSimbolSem = true;
+                    
+                    if(renglones.get(i).contains("JC") || renglones.get(i).contains("JGE") || renglones.get(i).contains("JNA") || renglones.get(i).contains("JS") || renglones.get(i).contains("LOOPNE") || renglones.get(i).contains("JAE")){
+                        if(saltoVal){
+                            resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
+                        }else{
+                            resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ NO EXISTE ]\n");
+                        }
                     }else{
-                        /*Si el simbolo no se repite no hay problema y manda un correcto en caso de que lo sea en el analisis sintactico*/
-                        resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
+                        if (existSimbol==true) {//si el simbolo ya existia en el arreglo simbolos manda un error
+
+                            resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ REPETIDO ]\n");
+                            existSimbolSem = true;
+                        }else{
+                            /*Si el simbolo no se repite no hay problema y manda un correcto en caso de que lo sea en el analisis sintactico*/
+                            resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
+                        }
                     }
+                        
                 } catch (Exception ex) {
                     symb = s.getS();
                     if(symb.value==null){/*value es lo que nos da el usuario pero en algunas 
