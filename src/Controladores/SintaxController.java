@@ -34,6 +34,57 @@ public class SintaxController {
     }
     public static void ocultar(){winSin.setVisible(false);}
     
+    public static void valTamInst(int i){
+        if(renglones.get(i).toUpperCase().contains("ADD")){
+            if(renglones.get(i).toUpperCase().contains("X") && renglones.get(i).toUpperCase().contains("L")){
+                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+            }else if(renglones.get(i).toUpperCase().contains("X") && renglones.get(i).toUpperCase().contains("H")){
+                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+            }else if(
+                    (renglones.get(i).toUpperCase().contains("H") || renglones.get(i).toUpperCase().contains("L")) && 
+                    (renglones.get(i).toUpperCase().contains("SI") || renglones.get(i).toUpperCase().contains("DI") || renglones.get(i).toUpperCase().contains("BP") || renglones.get(i).toUpperCase().contains("SP"))){
+                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+            }else{
+                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ ERROR EN LOS OPERANDOS ]\n");
+            }
+        }
+        if(renglones.get(i).toUpperCase().contains("LES")){
+            if(renglones.get(i).toUpperCase().contains("X") && renglones.get(i).toUpperCase().contains("L")){
+                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ LOS OPERANDOS SON INCORRECTOS ]\n");
+            }else if(renglones.get(i).toUpperCase().contains("X") && renglones.get(i).toUpperCase().contains("H")){
+                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ LOS OPERANDOS SON INCORRECTOS ]\n");
+            }else{
+                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ ERROR EN LOS OPERANDOS ]\n");
+            }
+        }
+        if(renglones.get(i).toUpperCase().contains("OR")){
+            if(renglones.get(i).toUpperCase().contains("X") && renglones.get(i).toUpperCase().contains("L")){
+                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+            }else if(renglones.get(i).toUpperCase().contains("X") && renglones.get(i).toUpperCase().contains("H")){
+                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+            }else if(
+                    (renglones.get(i).toUpperCase().contains("H") || renglones.get(i).toUpperCase().contains("L")) && 
+                    (renglones.get(i).toUpperCase().contains("SI") || renglones.get(i).toUpperCase().contains("DI") || renglones.get(i).toUpperCase().contains("BP") || renglones.get(i).toUpperCase().contains("SP"))){
+                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+            }else{
+                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ ERROR EN LOS OPERANDOS ]\n");
+            }
+        }
+        if(renglones.get(i).toUpperCase().contains("SUB")){
+            if(renglones.get(i).toUpperCase().contains("X") && renglones.get(i).toUpperCase().contains("L")){
+                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+            }else if(renglones.get(i).toUpperCase().contains("X") && renglones.get(i).toUpperCase().contains("H")){
+                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+            }else if(
+                    (renglones.get(i).toUpperCase().contains("H") || renglones.get(i).toUpperCase().contains("L")) && 
+                    (renglones.get(i).toUpperCase().contains("SI") || renglones.get(i).toUpperCase().contains("DI") || renglones.get(i).toUpperCase().contains("BP") || renglones.get(i).toUpperCase().contains("SP"))){
+                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+            }else{
+                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ ERROR EN LOS OPERANDOS ]\n");
+            }
+        }
+    }
+    
     public static void separatxtArchivo(String txtarchivo){
         /*Obtiene el texto del archivo que se ecuentra en te textArea donde se abre el archivo
         Con ese texto haciendo uso de spit separa toda la cadena(texto) por saltos de linea
@@ -82,7 +133,7 @@ public class SintaxController {
         data=null;
         for (int i = 0; i < renglones.size(); i++) {
             if(renglones.get(i).contains(",")){
-                renglones.set(i,renglones.get(i).replace(",", " "));
+                renglones.set(i,renglones.get(i).replace(",", " , "));
             }
             saltoVal = false;
             existSimbol = false;//Decimos que el simbolo no existe hasta que entre al analizador en donde puede cambiar dependiendo de si el simbolo se esta repitiendo
@@ -97,11 +148,13 @@ public class SintaxController {
                     
                     if(renglones.get(i).contains("JC") || renglones.get(i).contains("JGE") || renglones.get(i).contains("JNA") || renglones.get(i).contains("JS") || renglones.get(i).contains("LOOPNE") || renglones.get(i).contains("JAE")){
                         if(saltoVal){
+                            System.out.println(renglones.get(i));
                             resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
                         }else{
-                            resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ NO EXISTE ]\n");
+                            resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ NO EXISTE LA ETIQUETA USADA ]\n");
                         }
                     }else{
+                        
                         if (existSimbol==true) {//si el simbolo ya existia en el arreglo simbolos manda un error
 
                             resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ REPETIDO ]\n");
@@ -119,17 +172,29 @@ public class SintaxController {
                         en todo el renglon como un error general*/
                         symb.value = renglones.get(i);
                     }
-                    cadSinComa = (String) symb.value;
-                    if(cadSinComa.contains(",")){/*En algunas ocaciones tiene una coma pegada a los errores
-                        y es importante eliminarla por lo tanto reasignamos el valor d cadSinComa a value*/
-                        cadSinComa = cadSinComa.replace(",", "");
-                        symb.value = cadSinComa;
+//                    cadSinComa = (String) symb.value;
+//                    if(cadSinComa.contains(",")){/*En algunas ocaciones tiene una coma pegada a los errores
+//                        y es importante eliminarla por lo tanto reasignamos el valor d cadSinComa a value*/
+//                        cadSinComa = cadSinComa.replace(",", "");
+//                        symb.value = cadSinComa;
+//                    }
+//                    if(renglones.get(i).endsWith("\t"))
+//                        renglones.get(i).replace("\t", "");
+                    
+                    if(renglones.get(i).toUpperCase().contains("ADD") || renglones.get(i).toUpperCase().contains("LES") || renglones.get(i).toUpperCase().contains("OR") || renglones.get(i).toUpperCase().contains("SUB")){
+                        if(renglones.get(i).contains("'$'")){
+                            resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
+                        }else if(code!=null){
+                            valTamInst(i);
+                        }else{
+                            System.out.println("Code desactivado");
+                        }
+                        
+                    }else  if(renglones.get(i).length()<=1){
+                    }else{
+                        resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[" + renglones.get(i) + "]\n");
                     }
-                    if(renglones.get(i).endsWith("\t"))
-                        renglones.get(i).replace("\t", "");
-                    if(renglones.get(i).length()>1)/*Con esto nos permitimos eliminar los saltos de linea
-                        que aparecen y son analizador pero no deberian ser mostrados*/
-                        resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[" + symb.value + "]\n");
+                    
                 }
             }
         }
