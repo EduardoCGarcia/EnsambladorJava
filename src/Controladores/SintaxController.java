@@ -204,6 +204,8 @@ public class SintaxController {
                                     resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ EL SIMBOLO NO EXISTE  ]\n");
                                 }else if(tamreg==-1){
                                     resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+                                }else if(valid){
+                                    resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
                                 }else{
                                     resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
                                 }
@@ -228,7 +230,12 @@ public class SintaxController {
                                 existSimbolSem = true;
                             }else{
                                 /*Si el simbolo no se repite no hay problema y manda un correcto en caso de que lo sea en el analisis sintactico*/
-                                resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
+                                if(!err){
+                                    resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
+                                }else{
+                                    resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ Tamaño del dato no valido ]\n");
+                                }
+                                
                             }
                         }
                     }        

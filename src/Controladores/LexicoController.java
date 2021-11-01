@@ -34,7 +34,7 @@ public class LexicoController {
         MAELEX maeLex = new MAELEX(new java.io.StringReader(lec));//Se lo colocamos al maeLex porque es el que va a hacer el analisis lexico
         String result = "";
         simbolo=tipo=valor=etiqueta=instSalto=instUOper=null;
-        add = les = or = sub = sim = false;
+        add = les = or = sub = sim = err = valid = false;
         tamreg = tamreg2 = var2 = 0;
         while (true) {
             Elementos elemento = maeLex.yylex();
@@ -161,6 +161,13 @@ public class LexicoController {
                     /*Si esta activo el codigo y la etiqueta y se lee cualquier otra cosa los reiniciamos*/
                     if(code!="desactivado" && etiqueta!=null)
                         etiqueta=null;
+                    if((or || sub) && tamreg == 8){
+                        if(Integer.parseInt(maeLex.maeLexMe) >= 255){
+                            sim = true;
+                            valid=true;
+                            
+                        }
+                    }
                 }
                 
                 case ConstanteBin -> {
@@ -171,6 +178,7 @@ public class LexicoController {
                     /*Si esta activo el codigo y la etiqueta y se lee cualquier otra cosa los reiniciamos*/
                     if(code!="desactivado" && etiqueta!=null)
                         etiqueta=null;
+                    
                 }
 
                 case ConstanteHex -> {
@@ -321,8 +329,11 @@ public class LexicoController {
                             System.out.println("registro incorrecto porque no encontro el simbolo");
                             tamreg = -2;
                         }
-                    }
                     
+                    }
+                    if(instUOper=="activado"){
+                        existSimbol = true;
+                    }
                     
                 }
                 case AH,AL,BH,BL,CH,CL,DH,DL -> {
@@ -349,6 +360,9 @@ public class LexicoController {
                             //no se encontro el simbolo
                             tamreg = -2;
                         }
+                    }
+                    if(instUOper=="activado"){
+                        existSimbol = true;
                     }
                 }
 
@@ -419,8 +433,18 @@ public class LexicoController {
                     /*Si esta activo el codigo y la etiqueta y se lee cualquier otra cosa los reiniciamos*/
                     if(code!="desactivado" && etiqueta!=null)
                         etiqueta=null;
-                    
-                    
+                    err = true;
+                    if((or || sub) && tamreg == 8 ){
+                        if(maeLex.maeLexMe.length() < 9 || maeLex.maeLexMe.length() > 9 ){
+                            sim = true;
+                            valid=true;
+                        }
+                    }else if((or || sub) && tamreg == 16 ){
+                        if(maeLex.maeLexMe.length() < 17 || maeLex.maeLexMe.length() > 17 ){
+                            sim = true;
+                            valid=true;
+                        }
+                    }
                 }
                 //default -> result += "  < Elemento No Identificado >\t\t " + maeLex.maeLexMe + " \t\n";
             }
