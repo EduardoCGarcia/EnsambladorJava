@@ -33,10 +33,20 @@ public class Lexico extends javax.swing.JFrame {
     public static int filas=0,columnas=0;
     public static String data,simbolo,tipo,valor,code,etiqueta,instSalto,instUOper;
     public static boolean insLES,insOR,insSUB,instVal;
-    public static boolean add,les,or,sub,sim,err,valid;
+    public static boolean add,les,or,sub,sim,err,valid,simtam;
+    public static boolean idiv,div,mul,not;
     public static byte tamreg,tamreg2,var2;
     public static boolean saltoVal;
     public static int cont = 0;
+    
+    public static long contadorDecimal = 0 ;
+    public static String contadorHexadecimal = "0";
+    public static String codigoMaquina = "0";
+    public static String contadorHexadecimalAnterior="";
+    public static String contadorHexadecimalAnterior2="";   
+    
+    
+    
     public static ArrayList<String> etiqs = new ArrayList<String>();
     public Lexico() {
         initComponents();

@@ -25,7 +25,7 @@ public enum Elementos {
     
     STI, 
     AAM,
-    SLI, 
+    CLI, 
     RET, 
     STOSB, 
     AAS, 

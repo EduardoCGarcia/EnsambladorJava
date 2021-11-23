@@ -37,26 +37,13 @@ public class SintaxController {
     public static void valTamInst(int i){
         if(renglones.get(i).toUpperCase().startsWith("ADD ")){
             if(tamreg2==-1){
-                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+                resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
             }else{
-                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ LOS OPERANDOS NO SON LOS CORRECTOS ]\n");
+                resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ LOS OPERANDOS NO SON LOS CORRECTOS ]\n");
             }
-            
-            
-//            if(renglones.get(i).toUpperCase().contains("X") && renglones.get(i).toUpperCase().contains("L")){
-//                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
-//            }else if(renglones.get(i).toUpperCase().contains("X") && renglones.get(i).toUpperCase().contains("H")){
-//                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
-//            }else if(
-//                    (renglones.get(i).toUpperCase().contains("H") || renglones.get(i).toUpperCase().contains("L")) && 
-//                    (renglones.get(i).toUpperCase().contains("SI") || renglones.get(i).toUpperCase().contains("DI") || renglones.get(i).toUpperCase().contains("BP") || renglones.get(i).toUpperCase().contains("SP"))){
-//                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
-//            }else{
-//                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ ERROR EN LOS OPERANDOS ]\n");
-//            }
         }
         if(renglones.get(i).toUpperCase().startsWith("LES ")){
-            resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ LOS OPERANDOS NO SON LOS CORRECTOS ]\n");
+            resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ LOS OPERANDOS NO SON LOS CORRECTOS ]\n");
             
             
             
@@ -71,9 +58,9 @@ public class SintaxController {
         }
         if(renglones.get(i).toUpperCase().startsWith("OR ")){
             if(tamreg2==-1){
-                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+                resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
             }else{
-                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ LOS OPERANDOS NO SON LOS CORRECTOS ]\n");
+                resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ LOS OPERANDOS NO SON LOS CORRECTOS ]\n");
             }
             
             
@@ -91,9 +78,9 @@ public class SintaxController {
         }
         if(renglones.get(i).toUpperCase().startsWith("SUB ")){
             if(tamreg2==-1){
-                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+                resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
             }else{
-                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ LOS OPERANDOS NO SON LOS CORRECTOS ]\n");
+                resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ LOS OPERANDOS NO SON LOS CORRECTOS ]\n");
             }
 //            }
 //            if(renglones.get(i).toUpperCase().contains("X") && renglones.get(i).toUpperCase().contains("L")){
@@ -142,20 +129,23 @@ public class SintaxController {
         Symbol symb;
         simbolos.clear();
         /*Ejecutamos el analizador lexico debido a que necesitamos llenar los renglones si no nos manda un nullpointer exception*/
-        try {
-                TablaController.llenarTabla(txtarchivo, TablaDeSimbolos.tableSym);
-                //LexicoController.analizarLexico(txtarchivo);
-        } catch (IOException ex) {
-            Logger.getLogger(SintaxController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//                TablaController.llenarTabla(txtarchivo, TablaDeSimbolos.tableSym);
+//                //LexicoController.analizarLexico(txtarchivo);
+//        } catch (IOException ex) {
+//            Logger.getLogger(SintaxController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         simbolos.clear();
         tabla.clear();
+        
+        etiquetas.clear();
         /*Separamos por saltos de linea las el contenido total del texto que se obtiene del archivo*/
         separatxtArchivo(txtarchivo);
         //simbolos.clear();//vaciamos los simbolos para volver a llenarlos pero esta vez renglon por renglon
         /*Debemos inicializar el data ya que si no podria estar leyendo los datos simbolos y no guardandolos
         si no se llegaa abrir el data segment por obvias razones no deberia poderse declarar ningun dato*/
         data=null;
+        code=null;
         for (int i = 0; i < renglones.size(); i++) {
             if(renglones.get(i).contains(",")){
                 renglones.set(i,renglones.get(i).replace(",", " , "));
@@ -174,66 +164,64 @@ public class SintaxController {
                     if(renglones.get(i).toUpperCase().contains("JC") || renglones.get(i).toUpperCase().contains("JGE") || renglones.get(i).toUpperCase().contains("JNA") || renglones.get(i).toUpperCase().contains("JS") || renglones.get(i).toUpperCase().contains("LOOPNE") || renglones.get(i).toUpperCase().contains("JAE")){
                         if(saltoVal){
                             System.out.println(renglones.get(i));
-                            resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
+                            resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
                         }else{
-                            resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ NO EXISTE LA ETIQUETA USADA ]\n");
+                            resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ NO EXISTE LA ETIQUETA USADA ]\n");
                         }
                     }else if(renglones.get(i).toUpperCase().contains("IDIV") || renglones.get(i).toUpperCase().contains("DIV") || renglones.get(i).toUpperCase().contains("MUL") || renglones.get(i).toUpperCase().contains("NOT")){
-                        System.out.println("Instruccion = " + existSimbol);
                         if (existSimbol){
-                            System.out.println("el simbolo para la instruccion si existe");
-                            resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
+                            resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
                         }else{
-                            resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ NO EXISTE LA VARIABLE ]\n");
+                            resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ NO EXISTE LA VARIABLE ]\n");
                         }
                     }else{
                         if(renglones.get(i).toUpperCase().startsWith("LES ")){
                             if(var2==10){
-                                resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
+                                resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
                             }else if(var2 == -1){
-                                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+                                resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
                             }else if(var2 == -2){
-                                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ EL SIMBOLO NO EXISTE  ]\n");
+                                resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ EL SIMBOLO NO EXISTE  ]\n");
                             }else{
-                                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ LOS OPERANDOS NO SON LOS CORRECTOS ]\n");
+                                resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ LOS OPERANDOS NO SON LOS CORRECTOS ]\n");
                             }
 
-                        }else if(renglones.get(i).toUpperCase().startsWith("OR ") || renglones.get(i).toUpperCase().startsWith("SUB ")){
+                        }else if(renglones.get(i).toUpperCase().startsWith("OR ") || renglones.get(i).toUpperCase().startsWith("SUB ") || renglones.get(i).toUpperCase().startsWith("ADD ") ){
                             if(sim || tamreg==-2){
                                 if(var2 == -1 && tamreg == -2){
-                                    resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ EL SIMBOLO NO EXISTE  ]\n");
+                                    resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ EL SIMBOLO NO EXISTE  ]\n");
                                 }else if(tamreg==-1){
-                                    resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+                                    resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
                                 }else if(valid){
-                                    resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+                                    resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
                                 }else{
-                                    resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
+                                    resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
                                 }
                             }else if(var2 != 0){
                                 if(var2==10){
-                                    resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
+                                    resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
                                 }else if(var2 == -1){
-                                    resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
+                                    resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ TAMAÑO DE LOS OPERANDOS INCORRECTO ]\n");
                                 }else if(var2 == -2){
-                                    resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ EL SIMBOLO NO EXISTE  ]\n");
+                                    resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ EL SIMBOLO NO EXISTE  ]\n");
                                 }else{
-                                    resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ LOS OPERANDOS NO SON LOS CORRECTOS ]\n");
+                                    resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ LOS OPERANDOS NO SON LOS CORRECTOS ]\n");
                                 }
                             }else{
-                                resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
+                                resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
                             }
                             
                         }else{
                             if (existSimbol==true) {//si el simbolo ya existia en el arreglo simbolos manda un error
 
-                                resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ REPETIDO ]\n");
+                                resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ REPETIDO ]\n");
                                 existSimbolSem = true;
                             }else{
                                 /*Si el simbolo no se repite no hay problema y manda un correcto en caso de que lo sea en el analisis sintactico*/
                                 if(!err){
-                                    resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
+                                    resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
                                 }else{
-                                    resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ Tamaño del dato no valido ]\n");
+                                    resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[ Tamaño del dato no valido ]\n");
                                 }
                                 
                             }
@@ -247,17 +235,17 @@ public class SintaxController {
                         symb.value = renglones.get(i);
                     }
 //                    cadSinComa = (String) symb.value;
-//                    if(cadSinComa.contains(",")){/*En algunas ocaciones tiene una coma pegada a los errores
+//                    if(cadSinComa.contains(",")){/*En algunas ocaciones tiene una C4C00200 coma pegada a los errores
 //                        y es importante eliminarla por lo tanto reasignamos el valor d cadSinComa a value*/
 //                        cadSinComa = cadSinComa.replace(",", "");
 //                        symb.value = cadSinComa;
-//                    }
+//                    } C4C00200
 //                    if(renglones.get(i).endsWith("\t"))
 //                        renglones.get(i).replace("\t", "");
                     
                     if(renglones.get(i).toUpperCase().contains("ADD") || renglones.get(i).toUpperCase().contains("LES") || renglones.get(i).toUpperCase().contains("OR") || renglones.get(i).toUpperCase().contains("SUB")){
                         if(renglones.get(i).contains("'$'")){
-                            resultSin.add(renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
+                            resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-C O R R E C T O->]" + "\n");   
                         }else if(code!=null){
                             valTamInst(i);
                         }else{
@@ -265,16 +253,23 @@ public class SintaxController {
                         }
                         
                     }else  if(renglones.get(i).length()<=1){
-                        resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[" + renglones.get(i) + "]\n");
+                        //resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[" + renglones.get(i) + "]\n");
                     }else{
-                        resultSin.add(renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[" + renglones.get(i) + "]\n");
+                        contadorHexadecimal = SumarAHexadecimal.restar(contadorHexadecimal, contadorDecimal);
+                        
+                        resultSin.add(contadorHexadecimalAnterior.toUpperCase() + "H\t\t" + renglones.get(i) + "\t\t[<-I N C O R R E C T O->]" + "-->ERROR[" + renglones.get(i) + "]\n");
                     }
-                    
                 }
             }
         }
-        
-
     }
 
 }
+
+
+
+
+
+
+
+

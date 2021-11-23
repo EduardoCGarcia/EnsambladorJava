@@ -21,6 +21,10 @@ import javax.swing.table.DefaultTableModel;
  * @author eduar
  */
 public class TablaController {
+    public static int contadorEtiqueta;
+    public static String contadorHexaEtiqueta;
+    public static String contadorAnteriorHexaEtiqueta;
+    
     static TablaDeSimbolos winTable = new TablaDeSimbolos();
     public static void mostrar() throws IOException{
         winTable.setVisible(true);
@@ -48,10 +52,11 @@ public class TablaController {
         
         Recordar tambien que el analizador lexico nos hace el llenado del arrayList tabla usando 
         el metodo llenar matriz*/
-        for (String linea : renglones) {
-            LexicoController.analizarLexico(linea);
-        }
-        /*Establecemos el modelo de la tabla cada ve que entre aqui para que no
+//        for (String linea : renglones) {
+//            LexicoController.analizarLexico(linea);
+//        }
+        SintaxController.analisisSintax(txtarchivo);
+       /*Establecemos el modelo de la tabla cada ve que entre aqui para que no
         se dupliquen los campos*/
         modeloLista =  new DefaultTableModel();
         /*Establecemos las columnas*/
@@ -60,6 +65,7 @@ public class TablaController {
         columna.add("TIPO");
         columna.add("VALOR");
         columna.add("TAMAÑO");
+        columna.add("DIRECCION");
         
         for(Object col:columna){
             modeloLista.addColumn(col);

@@ -10,6 +10,7 @@ import Controladores.SemanticoController;
 import Controladores.SintaxController;
 import Controladores.TablaController;
 import static ProgramaPrincipal.TablaDeSimbolos.modeloLista;
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -74,6 +75,11 @@ public class Inicio extends javax.swing.JFrame {
         btnAbrirArchivo.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         btnAbrirArchivo.setForeground(new java.awt.Color(255, 255, 255));
         btnAbrirArchivo.setText("Abrir Archivo ASM");
+        btnAbrirArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAbrirArchivoMouseEntered(evt);
+            }
+        });
         btnAbrirArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbrirArchivoActionPerformed(evt);
@@ -261,6 +267,10 @@ public class Inicio extends javax.swing.JFrame {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSemanticoActionPerformed
+
+    private void btnAbrirArchivoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAbrirArchivoMouseEntered
+        btnAbrirArchivo.setBackground(Color.red);
+    }//GEN-LAST:event_btnAbrirArchivoMouseEntered
 ////
     /**
      * @param args the command line arguments

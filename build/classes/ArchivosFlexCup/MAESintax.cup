@@ -15,7 +15,7 @@ parser code
 }
 :};
 terminal Linea,DB,DW,EQU,STACK,DATA,CODE,MACRO,ENDM, ENDS, PROC, ENDP,BYTE_PTR,WORD_PTR,
-        STI,AAM,SLI,RET,STOSB,AAS,IDIV,DIV,MUL,NOT,ADD,LES,OR,SUB,JC,JGE,JNA,JS,LOOPNE,JAE,
+        STI,AAM,CLI,RET,STOSB,AAS,IDIV,DIV,MUL,NOT,ADD,LES,OR,SUB,JC,JGE,JNA,JS,LOOPNE,JAE,
         AX,AH,AL,BX,BH,BL,CX,CH,CL,DX,DH,DL,SI,DI,SP,BP,SS,CS,DS,ES,
         Dos_puntos,Coma,Comilla_d,Comilla_s,Parentesis_a,Parentesis_c,Corchete_a,Corchete_c,Separadores,TITLE,
         SinComa,DUP,Cadena,ConstanteDec,ConstanteBin,ConstanteHex,Simbolo,Etiqueta,ERROR;
@@ -59,7 +59,7 @@ Declaracion::= Simbolo DB Cadena|
 
 DefProc::= PROC Simbolo;
 
-ZeOpInst::= AAS|STOSB|RET|SLI|AAM|STI;
+ZeOpInst::= AAS|STOSB|RET|CLI|AAM|STI;
 
 
 OneOpInst::= 
@@ -91,6 +91,56 @@ ADD AL BL|ADD AL CL|ADD AL DL|
 ADD BL AL|ADD BL CL|ADD BL DL|
 ADD CL AL|ADD CL BL|ADD CL DL|
 ADD DL AL|ADD DL BL|ADD DL CL|
+ADD AX Simbolo|
+ADD BX Simbolo|
+ADD CX Simbolo|
+ADD DX Simbolo|
+ADD SI Simbolo|
+ADD DI Simbolo|
+ADD BP Simbolo|
+ADD SP Simbolo|
+ADD AH Simbolo|
+ADD BH Simbolo|
+ADD CH Simbolo|
+ADD DH Simbolo|
+ADD AL Simbolo|
+ADD BL Simbolo|
+ADD CL Simbolo|
+ADD DL Simbolo|
+ADD Simbolo AX|
+ADD Simbolo BX|
+ADD Simbolo CX|
+ADD Simbolo DX|
+ADD Simbolo SI|
+ADD Simbolo DI|
+ADD Simbolo BP|
+ADD Simbolo SP|
+ADD Simbolo AH|
+ADD Simbolo BH|
+ADD Simbolo CH|
+ADD Simbolo DH|
+ADD Simbolo AL|
+ADD Simbolo BL|
+ADD Simbolo CL|
+ADD Simbolo DL|
+ADD AX ConstanteDec|ADD AX ConstanteBin|ADD AX ConstanteHex|
+ADD BX ConstanteDec|ADD BX ConstanteBin|ADD BX ConstanteHex|
+ADD CX ConstanteDec|ADD CX ConstanteBin|ADD CX ConstanteHex|
+ADD DX ConstanteDec|ADD DX ConstanteBin|ADD DX ConstanteHex|
+ADD SI ConstanteDec|ADD SI ConstanteBin|ADD SI ConstanteHex|
+ADD DI ConstanteDec|ADD DI ConstanteBin|ADD DI ConstanteHex|
+ADD BP ConstanteDec|ADD BP ConstanteBin|ADD BP ConstanteHex|
+ADD SP ConstanteDec|ADD SP ConstanteBin|ADD SP ConstanteHex|
+ADD AH ConstanteDec|ADD AH ConstanteBin|ADD AH ConstanteHex|
+ADD BH ConstanteDec|ADD BH ConstanteBin|ADD BH ConstanteHex|
+ADD CH ConstanteDec|ADD CH ConstanteBin|ADD CH ConstanteHex|
+ADD DH ConstanteDec|ADD DH ConstanteBin|ADD DH ConstanteHex|
+ADD AL ConstanteDec|ADD AL ConstanteBin|ADD AL ConstanteHex|
+ADD BL ConstanteDec|ADD BL ConstanteBin|ADD BL ConstanteHex|
+ADD CL ConstanteDec|ADD CL ConstanteBin|ADD CL ConstanteHex|
+ADD DL ConstanteDec|ADD DL ConstanteBin|ADD DL ConstanteHex|
+ADD Simbolo ConstanteDec|ADD Simbolo ConstanteBin|ADD Simbolo ConstanteHex|
+
 LES AX Simbolo|
 LES BX Simbolo|
 LES CX Simbolo|

@@ -9,7 +9,7 @@ import java_cup.runtime.Symbol;
 %line
 %char
 L=[a-zA-Z_]+
-H=[0,a-fA-F_]+
+H=[a-fA-F_]+
 D=[0-9]+
 B=[0-1]+
 S=[.,:,*,$]+
@@ -43,7 +43,7 @@ endp | ENDP {return new Symbol(sym.ENDP, yychar, yyline, yytext());}
 /*Instrucciones*/
 sti | STI {return new Symbol(sym.STI, yychar, yyline, yytext());} 
 aam | AAM {return new Symbol(sym.AAM, yychar, yyline, yytext());} 
-sli | SLI {return new Symbol(sym.SLI, yychar, yyline, yytext());} 
+cli | CLI {return new Symbol(sym.CLI, yychar, yyline, yytext());} 
 ret | RET {return new Symbol(sym.RET, yychar, yyline, yytext());} 
 stosb | STOSB {return new Symbol(sym.STOSB, yychar, yyline, yytext());} 
 aas | AAS {return new Symbol(sym.AAS, yychar, yyline, yytext());} 
@@ -116,7 +116,9 @@ TITLE .* | title .* {return new Symbol(sym.TITLE, yychar, yyline, yytext());}
 
 {D}*{D} {return new Symbol(sym.ConstanteDec, yychar, yyline, yytext());}
 {B}*{B}"B"|{B}*{B}"b" {return new Symbol(sym.ConstanteBin, yychar, yyline, yytext());}
-"0"+({D}|{H})"H"|"0"+({D}|{H})"h" {return new Symbol(sym.ConstanteHex, yychar, yyline, yytext());}
+"0"+({D}|{H})"H"|"0"+({D}|{H})"h"|
+"0"+({D}*{H})"H"|"0"+({D}*{H})"h"|
+"0"+({H}*{D})"H"|"0"+({H}*{D})"h" {return new Symbol(sym.ConstanteHex, yychar, yyline, yytext());}
 {L}({L}|{D})*|{L}("["{D}"]") {return new Symbol(sym.Simbolo, yychar, yyline, yytext());}
 {L}({L}|{D})*":" {return new Symbol(sym.Etiqueta, yychar, yyline, yytext());}
 {L}(",") {return new Symbol(sym.SinComa, yychar, yyline, yytext());}

@@ -34,7 +34,7 @@ endp | ENDP {maeLexMe=yytext(); return ENDP;}
 /*Instrucciones*/
 sti | STI {maeLexMe=yytext(); return STI;}
 aam | AAM {maeLexMe=yytext(); return AAM;}
-sli | SLI {maeLexMe=yytext(); return SLI;}
+cli | CLI {maeLexMe=yytext(); return CLI;}
 ret | RET {maeLexMe=yytext(); return RET;}
 stosb | STOSB {maeLexMe=yytext(); return STOSB;}
 aas | AAS {maeLexMe=yytext(); return AAS;}
