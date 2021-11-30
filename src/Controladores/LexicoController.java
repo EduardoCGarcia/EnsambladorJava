@@ -35,6 +35,7 @@ public class LexicoController {
     public static int valDupCod;
     public static boolean stack, stackDW;
     public static boolean dB, dW;
+    public static boolean jae=false,loopne=false,js=false,jna=false,jge=false,jc=false;
     //STI,AAM,CLI,RET,STOSB,AAS
     public static String aOpInsBin[] = {"11111011", "1101010000001010", "11111010", "11000011", "10101010", "00111111"};
     public static boolean dsOpInsBin;
@@ -59,6 +60,7 @@ public class LexicoController {
         tamreg = tamreg2 = var2 = 0;
         contadorDecimal = 0;
         valDupCod = 0;
+        codigoMaquina = "000";
         while (true) {
             contInstUO += 1;
             Elementos elemento = maeLex.yylex();
@@ -102,6 +104,7 @@ public class LexicoController {
                         data = "activado";
                         contadorHexadecimalAnterior2 = contadorHexadecimal;
                         contadorHexadecimal = "0200";
+                        codigoMaquina = "000";
                     }
                     /*Si esta activo el codigo y la etiqueta y se lee cualquier otra cosa los reiniciamos*/
                     if (code != "desactivado" && etiqueta != null) {
@@ -115,6 +118,7 @@ public class LexicoController {
                         code = "activado";
                         contadorHexadecimalAnterior2 = contadorHexadecimal;
                         contadorHexadecimal = "0200";
+                        codigoMaquina = "000";
                     }
                     //contadorHexadecimal = "0200";  
 
@@ -132,9 +136,37 @@ public class LexicoController {
                         if (instSalto == "activado") {
                             saltoVal = existInEtiqs(maeLex.maeLexMe);
                             if(saltoVal){
-                            contadorDecimal = 3;
-                            contadorHexadecimalAnterior = contadorHexadecimal;
-                            contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);    
+                                saltoVal = existInTable(maeLex.maeLexMe);
+                                
+                                if(jae){
+                                    instruccionesDeSalto("01110011");
+                                    
+                                    jae = false;
+                                }else if(jc){
+                                    instruccionesDeSalto("01110010");
+                                    
+                                    jc = false;
+                                }else if(jge){
+                                    instruccionesDeSalto("01111101");
+                                    
+                                    jge = false;
+                                }else if(jna){
+                                    instruccionesDeSalto("01110110");
+                                    
+                                    jna = false;
+                                }else if (js){
+                                    instruccionesDeSalto("01111000");
+                                    
+                                    js = false;
+                                }else if(loopne){
+                                    instruccionesDeSalto("11100000");
+                                    
+                                    loopne = false;
+                                }
+                                contadorDecimal = 2;
+                                contadorHexadecimalAnterior = contadorHexadecimal;
+                                contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            
                             }
                         } else if (instUOper == "activado") {
                             existSimbol = existInTable(maeLex.maeLexMe);
@@ -392,6 +424,8 @@ public class LexicoController {
                         contadorDecimal += 2 * Integer.parseInt(maeLex.maeLexMe);
                         //contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
                         stack = stackDW = false;
+                        
+                        codigoMaquina = SumarAHexadecimal.sumar("000", 2*Integer.parseInt(maeLex.maeLexMe));
                     }
                     valorDeclaracion = 1;
                 }
@@ -633,6 +667,7 @@ public class LexicoController {
                     }
                     if (stack && stackDW) {
                         stack = stackDW = false;
+                        
                     }
                 }
 
@@ -663,7 +698,7 @@ public class LexicoController {
                     stack = true;
                     contadorHexadecimal = "0200";
                     contadorHexadecimalAnterior = contadorHexadecimal;
-
+                    codigoMaquina = "000";
                 }
                 case MACRO,ENDM,PROC,ENDP,BYTE_PTR -> {
                     cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Pseudoinstrucción\n"));
@@ -688,8 +723,11 @@ public class LexicoController {
                     if (code != "desactivado" && code != null) {
                         ins = true;
                         contadorDecimal = Integer.parseInt(aOpInsBin[0], 2);
+                        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                        contadorDecimal = 1;
                         contadorHexadecimalAnterior2 = contadorHexadecimal;
                         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                        
                     }
                 }
                 case AAM -> {
@@ -704,8 +742,11 @@ public class LexicoController {
                     if (code != "desactivado" && code != null) {
                         ins = true;
                         contadorDecimal = Integer.parseInt(aOpInsBin[1], 2);
+                        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                        contadorDecimal = 1;
                         contadorHexadecimalAnterior2 = contadorHexadecimal;
                         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                        
                     }
                 }
                 case CLI -> {
@@ -720,6 +761,8 @@ public class LexicoController {
                     if (code != "desactivado" && code != null) {
                         ins = true;
                         contadorDecimal = Integer.parseInt(aOpInsBin[2], 2);
+                        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                        contadorDecimal = 1;
                         contadorHexadecimalAnterior2 = contadorHexadecimal;
                         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
                     }
@@ -736,8 +779,11 @@ public class LexicoController {
                     if (code != "desactivado" && code != null) {
                         ins = true;
                         contadorDecimal = Integer.parseInt(aOpInsBin[3], 2);
+                        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                        contadorDecimal = 1;
                         contadorHexadecimalAnterior2 = contadorHexadecimal;
                         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                        
                     }
                 }
                 case STOSB -> {
@@ -752,8 +798,11 @@ public class LexicoController {
                     if (code != "desactivado" && code != null) {
                         ins = true;
                         contadorDecimal = Integer.parseInt(aOpInsBin[4], 2);
+                        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                        contadorDecimal = 1;
                         contadorHexadecimalAnterior2 = contadorHexadecimal;
                         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                        
                     }
                 }
                 case AAS -> {
@@ -768,8 +817,11 @@ public class LexicoController {
                     if (code != "desactivado" && code != null && maeLex.maeLexMe.toUpperCase().endsWith("AAS")) {
                         ins = true;
                         contadorDecimal = Integer.parseInt(aOpInsBin[5], 2);
+                        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                        contadorDecimal = 1;
                         contadorHexadecimalAnterior2 = contadorHexadecimal;
                         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                        
                     }
                 }
                 case ADD -> {
@@ -877,7 +929,7 @@ public class LexicoController {
                     }
                     not = true;
                 }
-                case JC,JGE,JNA,JS,LOOPNE,JAE -> {
+              case JAE -> {
                     cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Instrucción\n"));
                     if (simbolo != null || tipo != null) {
                         simbolo = tipo = valor = null;
@@ -888,6 +940,92 @@ public class LexicoController {
                     }
                     if (code != null) {
                         instSalto = "activado";
+                        jae = true;
+//                        saltoVal = true;
+//                        System.out.println("Encontro la etiqueta en en la tabla");
+                    }
+
+                }
+                case LOOPNE -> {
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Instrucción\n"));
+                    if (simbolo != null || tipo != null) {
+                        simbolo = tipo = valor = null;
+                    }
+                    /*Si esta activo el codigo y la etiqueta y se lee cualquier otra cosa los reiniciamos*/
+                    if (code != "desactivado" && etiqueta != null) {
+                        etiqueta = null;
+                    }
+                    if (code != null) {
+                        instSalto = "activado";
+                        loopne = true;
+//                        saltoVal = true;
+//                        System.out.println("Encontro la etiqueta en en la tabla");
+                    }
+
+                }
+                case JS -> {
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Instrucción\n"));
+                    if (simbolo != null || tipo != null) {
+                        simbolo = tipo = valor = null;
+                    }
+                    /*Si esta activo el codigo y la etiqueta y se lee cualquier otra cosa los reiniciamos*/
+                    if (code != "desactivado" && etiqueta != null) {
+                        etiqueta = null;
+                    }
+                    if (code != null) {
+                        instSalto = "activado";
+                        js = true;
+//                        saltoVal = true;
+//                        System.out.println("Encontro la etiqueta en en la tabla");
+                    }
+
+                }
+                case JNA -> {
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Instrucción\n"));
+                    if (simbolo != null || tipo != null) {
+                        simbolo = tipo = valor = null;
+                    }
+                    /*Si esta activo el codigo y la etiqueta y se lee cualquier otra cosa los reiniciamos*/
+                    if (code != "desactivado" && etiqueta != null) {
+                        etiqueta = null;
+                    }
+                    if (code != null) {
+                        instSalto = "activado";
+                        jna = true;
+//                        saltoVal = true;
+//                        System.out.println("Encontro la etiqueta en en la tabla");
+                    }
+
+                }
+                case JGE -> {
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Instrucción\n"));
+                    if (simbolo != null || tipo != null) {
+                        simbolo = tipo = valor = null;
+                    }
+                    /*Si esta activo el codigo y la etiqueta y se lee cualquier otra cosa los reiniciamos*/
+                    if (code != "desactivado" && etiqueta != null) {
+                        etiqueta = null;
+                    }
+                    if (code != null) {
+                        instSalto = "activado";
+                        jge = true;
+//                        saltoVal = true;
+//                        System.out.println("Encontro la etiqueta en en la tabla");
+                    }
+
+                }
+                case JC -> {
+                    cadena.add(String.format("%-70s\t%s", maeLex.maeLexMe, "Instrucción\n"));
+                    if (simbolo != null || tipo != null) {
+                        simbolo = tipo = valor = null;
+                    }
+                    /*Si esta activo el codigo y la etiqueta y se lee cualquier otra cosa los reiniciamos*/
+                    if (code != "desactivado" && etiqueta != null) {
+                        etiqueta = null;
+                    }
+                    if (code != null) {
+                        instSalto = "activado";
+                        jc = true;
 //                        saltoVal = true;
 //                        System.out.println("Encontro la etiqueta en en la tabla");
                     }
@@ -1109,6 +1247,7 @@ public class LexicoController {
         return false;
     }
 
+
     public static void codificacionSimbolos() {
         /*
        valorDeclaracion = 1  [Decimal]
@@ -1141,10 +1280,7 @@ public class LexicoController {
             contadorDecimal = valor.length() - 2;
             contadorHexadecimalAnterior = contadorHexadecimal;
             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
-            //System.out.println("Contdor hexa = " + contadorHexadecimal);
             valorDeclaracion = 0;
         }
     }
-
-
 }

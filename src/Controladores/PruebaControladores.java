@@ -5,6 +5,8 @@
  */
 package Controladores;
 
+import static javax.swing.text.html.HTML.Tag.S;
+
 /**
  *
  * @author eduar
@@ -39,9 +41,12 @@ public class PruebaControladores {
 //        System.out.println(hex);
 //        System.out.println(Long.toHexString(Long.parseLong(hex,2)));
     
-        String dato = "00001010";
-        System.out.println(Integer.toBinaryString(~Integer.parseInt(dato,2)-1));
-
+//        String dato = "00001010";
+//        System.out.println(Integer.toBinaryString(~Integer.parseInt(dato,2)-1));
+        String linea = "         ";
+        if(linea.isBlank()){
+            System.out.println("esta en blanco");
+        }
     }
     
 }

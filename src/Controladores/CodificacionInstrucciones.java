@@ -23,6 +23,9 @@ public class CodificacionInstrucciones {
         contadorDecimal = 4;
         contadorHexadecimalAnterior = contadorHexadecimal;
         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+        String contador = SumarAHexadecimal.completadorDeBits(tabla.get(posicion)[4].replace("H", ""));
+        contadorDecimal = Long.parseLong((w + mod + reg + rm + contador),2);
+        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
     }
     
     public static void instruccionesUnOperandoMem(){
@@ -32,6 +35,10 @@ public class CodificacionInstrucciones {
         contadorDecimal = 2;
         contadorHexadecimalAnterior = contadorHexadecimal;
         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+        String contador = SumarAHexadecimal.completadorDeBits(tabla.get(posicion)[4].replace("H", ""));
+        contadorDecimal = Long.parseLong((w + mod + reg + rm + contador),2);
+        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+        
     }
     
     public static void instruccionesDosOperandos8BitsMemInm(int inm){
@@ -41,6 +48,10 @@ public class CodificacionInstrucciones {
         contadorDecimal = 2 + 1;
         contadorHexadecimalAnterior = contadorHexadecimal;
         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+        String contador = SumarAHexadecimal.completadorDeBits(tabla.get(posicion)[4].replace("H", ""));
+        contadorDecimal = Long.parseLong((w + mod + reg + rm + contador),2);
+        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+        codigoMaquina += Integer.toHexString(inm);
     }
     public static void instruccionesDosOperandos16BitsMemInm(int inm){
 //        String contador = SumarAHexadecimal.completadorDeBits(tabla.get(posicion)[4].replace("H", ""));
@@ -49,6 +60,12 @@ public class CodificacionInstrucciones {
         contadorDecimal = 2 + 2 ;
         contadorHexadecimalAnterior = contadorHexadecimal;
         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+        
+        String contador = SumarAHexadecimal.completadorDeBits(tabla.get(posicion)[4].replace("H", ""));
+        contadorDecimal = Long.parseLong((w + mod + reg + rm + contador),2);
+        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+        codigoMaquina += Integer.toHexString(inm);
+        
     }
     
     public static void InstruccionSimbolo16Bits(){
@@ -146,6 +163,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000000" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("BX")) {
@@ -164,6 +184,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000000" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("CX")) {
@@ -182,6 +205,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000000" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("DX")) {
@@ -200,6 +226,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000000" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("SP")) {
@@ -218,6 +247,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000000" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("BP")) {
@@ -236,6 +268,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000000" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("SI")) {
@@ -254,6 +289,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000000" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("DI")) {
@@ -272,6 +310,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000000" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }
@@ -292,6 +333,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0010100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("BX")) {
@@ -310,6 +354,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0010100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("CX")) {
@@ -328,6 +375,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0010100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("DX")) {
@@ -346,6 +396,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0010100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("SP")) {
@@ -364,6 +417,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0010100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("BP")) {
@@ -382,6 +438,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0010100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("SI")) {
@@ -400,6 +459,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0010100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("DI")) {
@@ -418,6 +480,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0010100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }
@@ -438,6 +503,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("BX")) {
@@ -456,6 +524,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("CX")) {
@@ -474,6 +545,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("DX")) {
@@ -492,6 +566,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("SP")) {
@@ -510,6 +587,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("BP")) {
@@ -528,6 +608,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("SI")) {
@@ -546,6 +629,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 } else if (mae.toUpperCase().equals("DI")) {
@@ -564,6 +650,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }
@@ -732,6 +821,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000000" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("AL")) {
@@ -750,6 +842,8 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000000" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
                         }
                     }
                 }else if (mae.toUpperCase().equals("BH")) {
@@ -768,6 +862,8 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000000" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
                         }
                     }
                 }else if (mae.toUpperCase().equals("BL")) {
@@ -786,6 +882,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000000" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("CH")) {
@@ -804,6 +903,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000000" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("CL")) {
@@ -822,6 +924,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000000" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("DH")) {
@@ -840,6 +945,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000000" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("DL")) {
@@ -858,6 +966,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000000" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }
@@ -878,6 +989,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0010100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("AL")) {
@@ -896,6 +1010,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0010100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("BH")) {
@@ -914,6 +1031,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0010100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("BL")) {
@@ -932,6 +1052,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0010100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("CH")) {
@@ -950,6 +1073,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0010100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("CL")) {
@@ -968,6 +1094,8 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0010100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
                         }
                     }
                 }else if (mae.toUpperCase().equals("DH")) {
@@ -986,6 +1114,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0010100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("DL")) {
@@ -1004,9 +1135,13 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0010100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }
+                
             } else if (or) {
                 if (mae.toUpperCase().equals("AH")) {
                     if (tamreg == 8 && tamreg2 == 0 && var2 == 0) {
@@ -1024,6 +1159,8 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
                         }
                     }
                 }else if (mae.toUpperCase().equals("AL")) {
@@ -1042,6 +1179,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("BH")) {
@@ -1060,6 +1200,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("BL")) {
@@ -1078,6 +1221,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("CH")) {
@@ -1096,6 +1242,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("CL")) {
@@ -1114,6 +1263,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("DH")) {
@@ -1132,6 +1284,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }else if (mae.toUpperCase().equals("DL")) {
@@ -1150,6 +1305,9 @@ public class CodificacionInstrucciones {
                             contadorDecimal = 2;
                             contadorHexadecimalAnterior = contadorHexadecimal;
                             contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+                            contadorDecimal = Integer.parseInt("0000100" + w + mod + reg + rm, 2);
+                            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+                            
                         }
                     }
                 }
@@ -1273,6 +1431,11 @@ public class CodificacionInstrucciones {
         contadorDecimal = 4;
         contadorHexadecimalAnterior = contadorHexadecimal;
         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+        
+        String contador = SumarAHexadecimal.completadorDeBits(tabla.get(posicion)[4].replace("H", ""));
+        contadorDecimal = Long.parseLong((w + mod + reg + rm + contador),2);
+        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+        
     }
     
     public static void subMemReg16Bist(){
@@ -1285,6 +1448,10 @@ public class CodificacionInstrucciones {
         contadorDecimal = 4;
         contadorHexadecimalAnterior = contadorHexadecimal;
         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+        String contador = SumarAHexadecimal.completadorDeBits(tabla.get(posicion)[4].replace("H", ""));
+        contadorDecimal = Long.parseLong((w + mod + reg + rm + contador),2);
+        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+        
     }
     
     public static void orMemReg16Bist(){
@@ -1297,6 +1464,11 @@ public class CodificacionInstrucciones {
         contadorDecimal = 4;
         contadorHexadecimalAnterior = contadorHexadecimal;
         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+        
+        String contador = SumarAHexadecimal.completadorDeBits(tabla.get(posicion)[4].replace("H", ""));
+        contadorDecimal = Long.parseLong((w + mod + reg + rm + contador),2);
+        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+        
     }
     
     public static void addMemReg8Bist(){
@@ -1309,6 +1481,11 @@ public class CodificacionInstrucciones {
         contadorDecimal = 4;
         contadorHexadecimalAnterior = contadorHexadecimal;
         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+        
+        String contador = SumarAHexadecimal.completadorDeBits(tabla.get(posicion)[4].replace("H", ""));
+        contadorDecimal = Long.parseLong((w + mod + reg + rm + contador),2);
+        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+        
     }
     
     public static void subMemReg8Bist(){
@@ -1321,6 +1498,11 @@ public class CodificacionInstrucciones {
         contadorDecimal = 4;
         contadorHexadecimalAnterior = contadorHexadecimal;
         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+        
+        String contador = SumarAHexadecimal.completadorDeBits(tabla.get(posicion)[4].replace("H", ""));
+        contadorDecimal = Long.parseLong((w + mod + reg + rm + contador),2);
+        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+        
     }
     
     public static void orMemReg8Bist(){
@@ -1333,6 +1515,11 @@ public class CodificacionInstrucciones {
         contadorDecimal = 4;
         contadorHexadecimalAnterior = contadorHexadecimal;
         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+        
+        String contador = SumarAHexadecimal.completadorDeBits(tabla.get(posicion)[4].replace("H", ""));
+        contadorDecimal = Long.parseLong((w + mod + reg + rm + contador),2);
+        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+        
     }
     
     public static void instruccionesAUnOperando(){
@@ -1341,26 +1528,62 @@ public class CodificacionInstrucciones {
         contadorDecimal = 2;
         contadorHexadecimalAnterior = contadorHexadecimal;
         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+        
+        contadorDecimal = Integer.parseInt(w + mod + reg + rm, 2);
+        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+        
     }
     
     public static void instruccionesDosOperandosRegInm8Bits(int inm){
 //        contadorDecimal = Integer.parseInt(w + mod + reg + rm, 2) + inm;
-        contadorDecimal = 2 + 1;
+        contadorDecimal = 3;
         contadorHexadecimalAnterior = contadorHexadecimal;
         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+        
+        contadorDecimal = Integer.parseInt(w + mod + reg + rm, 2);
+        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+        codigoMaquina += Integer.toHexString(inm);
     }
     public static void instruccionesDosOperandosRegInm16Bits(int inm){
 //        contadorDecimal = Integer.parseInt(w + mod + reg + rm, 2) + inm;
-        if(inm<2550){
-            contadorDecimal = 2 + 1;
+        if(inm<255){
+            contadorDecimal = 3 ;
         }else{
             contadorDecimal = 2 + 2;
         }
         
         contadorHexadecimalAnterior = contadorHexadecimal;
         contadorHexadecimal = SumarAHexadecimal.sumar(contadorHexadecimal, contadorDecimal);
+        
+        contadorDecimal = Integer.parseInt(w + mod + reg + rm, 2) ;
+        codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+        codigoMaquina += Integer.toHexString(inm);
     }
     
-    
+    public static void instruccionesDeSalto(String cod){
+        String resta;
+        resta = SumarAHexadecimal.restar(contadorHexadecimal,(Integer.parseInt(tabla.get(posicion)[4].replace("H", ""), 16)));//el de la linea menos el de la etiqueta
+//                                    
+        System.out.println("resta = " + resta);
+
+        
+        if(Integer.parseInt(resta,16) > 0){
+            
+            String contenedor = Integer.toHexString(~Integer.parseInt(resta,16) + 1);
+            while(contenedor.contains("ff")){
+                contenedor = contenedor.replace("ff", "f");
+            }
+            
+            System.out.println("contenedor:  " + contenedor);
+            contenedor = Integer.toBinaryString(Integer.parseInt(contenedor,16));
+            System.out.println("contenedor:  " + contenedor);
+            contadorDecimal = Long.parseLong(cod + (contenedor) ,2);
+            System.out.println("contador decimal: " + contadorDecimal);
+            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+        }else{
+            contadorDecimal = Long.parseLong(cod ,2);
+            codigoMaquina = SumarAHexadecimal.sumar("000", contadorDecimal);
+        }
+    }
     
 }
